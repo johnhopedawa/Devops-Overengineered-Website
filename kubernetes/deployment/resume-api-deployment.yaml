@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: resume-api-deployment
+  namespace: overengineered
   labels:
     app: resume-api
 spec:

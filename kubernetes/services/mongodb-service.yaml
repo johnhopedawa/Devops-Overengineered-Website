@@ -1,13 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
- name: mongodb-service
- labels:
-  app: mongodb
+  name: mongodb-service
+  namespace: overengineered
+  labels:
+    app: mongodb
 spec:
- type: ClusterIP
- ports: 
+  type: ClusterIP
+  ports: 
   - port: 27017
     targetPort: 27017
- selector:
-  app: mongodb
+  selector:
+    app: mongodb
