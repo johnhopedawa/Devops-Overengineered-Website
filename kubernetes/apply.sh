@@ -13,9 +13,9 @@ KUBE_CONTEXT=prod
 
 echo "Applying all changes..."
 
+kubectl apply -f ingress/
 kubectl apply -f deployment/
 kubectl apply -f configmap/
-kubectl apply -f ingress/
 kubectl apply -f services/
 kubectl apply -f pvc/
 
