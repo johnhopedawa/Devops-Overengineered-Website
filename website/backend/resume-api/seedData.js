@@ -40,13 +40,17 @@ const resumeData = {
       location: "Vancouver, BC",
       duration: "September 2025 – Present",
       responsibilities: [
-        "Build and maintain production infrastructure and deployment systems for a microservices-based platform used across multiple international sites",
-        "Containerize services and manage image distribution using Docker and Docker Hub",
-        "Deploy and operate Kubernetes environments to support scaling, reliability, and repeatable rollouts",
-        "Create and maintain automated CI/CD pipelines using GitHub Actions and Jenkins",
-        "Manage infrastructure with Terraform to ensure consistent, reproducible environments",
-        "Maintain monitoring and alerting using Prometheus, Grafana, and Slack for real-time visibility",
-        "Improve release workflows and day-to-day development operations across the engineering team"
+        "Build and operate production infrastructure for a microservices-based platform supporting multiple international deployments",
+        "Serve as an on-call DevOps/SRE resource for high-severity production incidents, coordinating infrastructure and application-level remediation",
+        "Containerize and maintain multiple services using Docker, managing image distribution to support consistent and repeatable deployments",
+        "Deploy, operate, and maintain Kubernetes environments with a focus on reliability, scalability, and safe rollouts",
+        "Design and maintain end-to-end Grafana dashboards and alerting to provide visibility across critical service flows",
+        "Implement Prometheus metrics and distributed tracing for Java Spring Boot services following standardized observability specifications",
+        "Create and maintain automated CI/CD pipelines using GitHub Actions and Jenkins to improve release reliability and developer velocity",
+        "Manage infrastructure using Terraform to ensure consistent, reproducible environments across stages",
+        "Collaborate with application teams to troubleshoot infrastructure, deployment, and observability issues, reducing operational overhead",
+        "Automate remediation for common failure scenarios using Kubernetes operators and runbook-driven workflows",
+        "Communicate complex technical and reliability concepts to leadership in clear, high-level terms to support decision-making"
       ]
     },
     {
