@@ -17,7 +17,6 @@ const resumeData = {
     "Terraform",
     "GitHub Actions",
     "Jenkins",
-    "Helm",
     "NGINX",
     "Python",
     "Bash",
