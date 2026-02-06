@@ -10,4 +10,5 @@ cd "$SCRIPT_DIR"
 KUBE_CONTEXT=prod
 
 chmod +x apply.sh
+chmod +x apply-secrets.sh
 chmod +x delete.sh

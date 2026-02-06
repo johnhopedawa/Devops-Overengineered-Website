@@ -13,6 +13,8 @@ KUBE_CONTEXT=prod
 
 echo "Applying all changes..."
 
+./apply-secrets.sh
+
 kubectl apply -f ingress/
 kubectl apply -f deployment/
 kubectl apply -f configmap/
