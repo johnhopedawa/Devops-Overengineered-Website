@@ -247,17 +247,19 @@ body{
 .hero-stack-item[data-tech="linux"],
 .hero-stack-item[data-tech="githubactions"],
 .hero-stack-item[data-tech="gcp"],
-.hero-stack-item[data-tech="terraform"]{
+.hero-stack-item[data-tech="terraform"],
+.hero-stack-item[data-tech="prometheus"],
+.hero-stack-item[data-tech="grafana"]{
   border-color:#00d084;
   background:rgba(0,208,132,0.05);
 }
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]){
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"]){
   border-color:#6d4444;
   background:rgba(109,68,68,0.15);
   position:relative;
   overflow:hidden;
 }
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"])::before{
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"])::before{
   content:'';
   position:absolute;
   top:0;
@@ -274,8 +276,8 @@ body{
   pointer-events:none;
   z-index:1;
 }
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]) img,
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]) .name{
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"]) img,
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"]) .name{
   position:relative;
   z-index:2;
   opacity:0.5;
@@ -1072,6 +1074,12 @@ body{
   }
 }
 
+/* Pulse animation for live status dots */
+@keyframes pulse-dot{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:0.4;transform:scale(0.7)}
+}
+
 /* Shake Animation for Implemented Tech */
 @keyframes shake{
   0%, 100%{transform:translateX(0)}
@@ -1112,15 +1120,54 @@ body{
   100%{transform:translateX(0)}
 }
 
+@keyframes shake-loop-prometheus{
+  0%{transform:translateX(0)}
+  32.43%{transform:translateX(0)}
+  33.78%{transform:translateX(-3px)}
+  36.49%{transform:translateX(3px)}
+  39.19%{transform:translateX(0)}
+  100%{transform:translateX(0)}
+}
+@keyframes shake-loop-grafana{
+  0%{transform:translateX(0)}
+  40.54%{transform:translateX(0)}
+  41.89%{transform:translateX(-3px)}
+  44.59%{transform:translateX(3px)}
+  47.30%{transform:translateX(0)}
+  100%{transform:translateX(0)}
+}
+
 /* Apply looping animations */
 .hero-stack-item[data-tech="docker"]{animation:shake-loop-docker 7.4s ease-in-out infinite}
 .hero-stack-item[data-tech="kubernetes"]{animation:shake-loop-kubernetes 7.4s ease-in-out infinite}
 .hero-stack-item[data-tech="linux"]{animation:shake-loop-linux 7.4s ease-in-out infinite}
 .hero-stack-item[data-tech="githubactions"]{animation:shake-loop-githubactions 7.4s ease-in-out infinite}
+.hero-stack-item[data-tech="prometheus"]{animation:shake-loop-prometheus 7.4s ease-in-out infinite}
+.hero-stack-item[data-tech="grafana"]{animation:shake-loop-grafana 7.4s ease-in-out infinite}
 
 .tech-item[data-tech="nginx"]{animation:shake-loop-docker 7.4s ease-in-out infinite}
 .tech-item[data-tech="nodejs"]{animation:shake-loop-kubernetes 7.4s ease-in-out infinite}
 .tech-item[data-tech="mongodb"]{animation:shake-loop-linux 7.4s ease-in-out infinite}
+
+/* Live badge for stat cards */
+.stat-card--live{
+  border-color:#00d084;
+  background:rgba(0,208,132,0.04);
+}
+.stat-card--live::after{
+  content:'LIVE';
+  position:absolute;
+  top:10px;
+  right:10px;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  color:#00d084;
+  background:rgba(0,208,132,0.15);
+  border:1px solid #00d084;
+  border-radius:999px;
+  padding:2px 8px;
+}
 
 /* Subpage hero overrides */
 .page-infrastructure .hero-name,

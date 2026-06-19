@@ -132,13 +132,13 @@
           <div class="label"><strong>GitHub Actions</strong></div>
           <p>CI pipeline for automated builds, tests, and Docker image publishing on every commit.</p>
         </div>
-        <div class="stat-card">
-          <div class="label"><strong>Prometheus (Planned)</strong></div>
-          <p>Metrics collection and time-series database for monitoring cluster and service health.</p>
+        <div class="stat-card stat-card--live">
+          <div class="label"><strong>Prometheus</strong></div>
+          <p>Metrics collection running as a StatefulSet in the <code>monitoring</code> namespace. Scrapes all K3s nodes and pods via Node Exporter and kube-state-metrics every 15 seconds.</p>
         </div>
-        <div class="stat-card">
-          <div class="label"><strong>Grafana (Planned)</strong></div>
-          <p>Visualization dashboards for Prometheus metrics, alerts, and operational insights.</p>
+        <div class="stat-card stat-card--live">
+          <div class="label"><strong>Grafana</strong></div>
+          <p>Live dashboards at <a href="https://grafana.johnhopedawa.com" target="_blank" rel="noopener">grafana.johnhopedawa.com</a>. Pre-built Kubernetes and node-level dashboards provisioned automatically via kube-prometheus-stack.</p>
         </div>
       </div>
     </div>
@@ -230,8 +230,9 @@ Live at gcp-health-api-jpawjztt4a-uw.a.run.app</pre></div>
 
       <div class="info-box">
         <h3>Observability</h3>
-        <p><strong>Current:</strong> Basic health check endpoints on all services</p>
-        <p><strong>Planned:</strong> Prometheus scraping metrics from K3s pods, Grafana dashboards for CPU/memory/request rates, alerting for service failures</p>
+        <p><strong>Metrics:</strong> Prometheus scraping all K3s nodes and pods every 15 seconds (15-day retention, 10Gi storage) via kube-prometheus-stack Helm chart</p>
+        <p><strong>Dashboards:</strong> Grafana live at <a href="https://grafana.johnhopedawa.com" target="_blank" rel="noopener">grafana.johnhopedawa.com</a> with pre-built Kubernetes compute, networking, and node-level dashboards</p>
+        <p><strong>Alerting:</strong> AlertManager deployed, alerting rules in progress</p>
 
         <h3>Security</h3>
         <p><strong>Secrets Management:</strong> Environment variables for local dev, planned migration to Kubernetes Secrets or Vault</p>
@@ -260,9 +261,9 @@ Live at gcp-health-api-jpawjztt4a-uw.a.run.app</pre></div>
       </div>
       <div class="info-box">
         <h3>In Progress</h3>
-        <p>• Prometheus + Grafana deployment on K3s cluster</p>
         <p>• Automated kubectl apply from GitHub Actions (GitOps workflow)</p>
-        <p>• HTTPS with Let's Encrypt certificates</p>
+        <p>• AlertManager alerting rules (Slack/email notifications on service failures)</p>
+        <p>• ServiceMonitor CRDs to expose custom app metrics to Prometheus</p>
 
         <h3>Upcoming</h3>
         <p>• Jenkins CI/CD pipeline as alternative to GitHub Actions</p>

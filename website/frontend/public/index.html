@@ -249,7 +249,7 @@
         </div>
       </div>
       <div class="tech-hint-wrapper">
-        <span class="stack-hint">Powered by Prometheus (coming soon)</span>
+        <span class="stack-hint">Powered by Prometheus · <a href="https://grafana.johnhopedawa.com" target="_blank" rel="noopener" style="color:inherit;">grafana.johnhopedawa.com</a></span>
       </div>
     </div>
 
@@ -560,10 +560,39 @@ Ingress:
           title: 'Prometheus',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,208,132,0.15);border:1px solid #00d084;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:#00d084;letter-spacing:1px;">
+                  <span style="width:8px;height:8px;border-radius:50%;background:#00d084;display:inline-block;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
+                  ONLINE — monitoring namespace
+                </span>
+              </div>
+              <div class="resume-buttons">
+                <a href="https://grafana.johnhopedawa.com" target="_blank" rel="noopener" class="resume-btn-primary">View Live Dashboards →</a>
+              </div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Running Pods</h3>
+              <div class="tech-modal-code"><pre>NAME                                                    READY   STATUS
+prometheus-prom-stack-kube-prometheus-prometheus-0      2/2     Running
+prom-stack-prometheus-node-exporter-84nfw               1/1     Running  ← node 1
+prom-stack-prometheus-node-exporter-nb2gp               1/1     Running  ← node 2
+prom-stack-prometheus-node-exporter-pmlfh               1/1     Running  ← node 3
+prom-stack-kube-state-metrics-754486774-hgfsn           1/1     Running
+alertmanager-prom-stack-kube-prometheus-alertmanager-0  2/2     Running</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What It Monitors</h3>
+              <p>• <strong>3 bare-metal nodes</strong> — CPU, memory, disk via Node Exporter DaemonSet</p>
+              <p>• <strong>All pods</strong> in the <code>overengineered</code> namespace — frontend, api-gateway, resume-api, mongodb</p>
+              <p>• <strong>Kubernetes internals</strong> — kubelet, scheduler, controller manager</p>
+              <p>• <strong>Scrape interval:</strong> every 15 seconds · <strong>Retention:</strong> 15 days · <strong>Storage:</strong> 10Gi PV</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Deployment</h3>
+              <p>Installed via Helm — <code>kube-prometheus-stack</code> bundles Prometheus, Grafana, AlertManager, Node Exporter, and kube-state-metrics in one chart:</p>
+              <div class="tech-modal-code"><pre>helm install prom-stack prometheus/kube-prometheus-stack \\
+  --namespace monitoring \\
+  -f helm/kube-prometheus-stack/values.yaml</pre></div>
             </div>
           `
         },
@@ -571,10 +600,35 @@ Ingress:
           title: 'Grafana',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,208,132,0.15);border:1px solid #00d084;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:#00d084;letter-spacing:1px;">
+                  <span style="width:8px;height:8px;border-radius:50%;background:#00d084;display:inline-block;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
+                  ONLINE — grafana.johnhopedawa.com
+                </span>
+              </div>
+              <div class="resume-buttons">
+                <a href="https://grafana.johnhopedawa.com" target="_blank" rel="noopener" class="resume-btn-primary">Open Grafana →</a>
+              </div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Live Dashboards</h3>
+              <div class="tech-modal-code"><pre>Kubernetes / Compute Resources / Namespace (Workloads)
+Kubernetes / Compute Resources / Node (Pods)
+Kubernetes / Compute Resources / Pod
+Kubernetes / Networking / Cluster
+Kubernetes / Networking / Namespace (Pods)
+Kubernetes / Persistent Volumes
+Node Exporter / Nodes          ← bare-metal CPU, RAM, disk
+Node Exporter / USE Method / Cluster
+Prometheus / Overview          ← monitoring the monitor
+AlertManager / Overview</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Infrastructure</h3>
+              <p>• <strong>Ingress:</strong> Traefik routing <code>grafana.johnhopedawa.com</code> → Grafana pod</p>
+              <p>• <strong>TLS:</strong> Cloudflare wildcard origin certificate (<code>*.johnhopedawa.com</code>)</p>
+              <p>• <strong>Auth:</strong> Credentials stored as Kubernetes Secret in <code>monitoring</code> namespace — never in git</p>
+              <p>• <strong>Data source:</strong> Prometheus auto-configured by Helm chart on install</p>
             </div>
           `
         },

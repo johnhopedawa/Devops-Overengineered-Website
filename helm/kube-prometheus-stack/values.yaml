@@ -11,6 +11,10 @@ grafana:
       - hosts:
           - grafana.johnhopedawa.com
         secretName: cloudflare-origin-cert
+  grafana.ini:
+    auth.anonymous:
+      enabled: true
+      org_role: Viewer
   admin:
     existingSecret: grafana-admin-secret
     userKey: username
