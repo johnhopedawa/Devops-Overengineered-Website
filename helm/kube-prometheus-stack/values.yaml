@@ -11,7 +11,10 @@ grafana:
       - hosts:
           - grafana.johnhopedawa.com
         secretName: cloudflare-origin-cert
-  adminPassword: "changeme"
+  admin:
+    existingSecret: grafana-admin-secret
+    userKey: username
+    passwordKey: password
 
 prometheus:
   prometheusSpec:
