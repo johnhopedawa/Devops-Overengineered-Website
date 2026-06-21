@@ -249,17 +249,21 @@ body{
 .hero-stack-item[data-tech="gcp"],
 .hero-stack-item[data-tech="terraform"],
 .hero-stack-item[data-tech="prometheus"],
-.hero-stack-item[data-tech="grafana"]{
+.hero-stack-item[data-tech="grafana"],
+.hero-stack-item[data-tech="helm"]{
   border-color:#00d084;
   background:rgba(0,208,132,0.05);
 }
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"]){
+.hero-stack-item[data-tech="helm"] img{
+  border-radius:50%;
+}
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"]):not([data-tech="helm"]){
   border-color:#6d4444;
   background:rgba(109,68,68,0.15);
   position:relative;
   overflow:hidden;
 }
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"])::before{
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"]):not([data-tech="helm"])::before{
   content:'';
   position:absolute;
   top:0;
@@ -276,8 +280,8 @@ body{
   pointer-events:none;
   z-index:1;
 }
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"]) img,
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"]) .name{
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"]):not([data-tech="helm"]) img,
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]):not([data-tech="prometheus"]):not([data-tech="grafana"]):not([data-tech="helm"]) .name{
   position:relative;
   z-index:2;
   opacity:0.5;
@@ -1136,6 +1140,14 @@ body{
   47.30%{transform:translateX(0)}
   100%{transform:translateX(0)}
 }
+@keyframes shake-loop-helm{
+  0%{transform:translateX(0)}
+  48.65%{transform:translateX(0)}
+  50.00%{transform:translateX(-3px)}
+  52.70%{transform:translateX(3px)}
+  55.41%{transform:translateX(0)}
+  100%{transform:translateX(0)}
+}
 
 /* Apply looping animations */
 .hero-stack-item[data-tech="docker"]{animation:shake-loop-docker 7.4s ease-in-out infinite}
@@ -1144,6 +1156,7 @@ body{
 .hero-stack-item[data-tech="githubactions"]{animation:shake-loop-githubactions 7.4s ease-in-out infinite}
 .hero-stack-item[data-tech="prometheus"]{animation:shake-loop-prometheus 7.4s ease-in-out infinite}
 .hero-stack-item[data-tech="grafana"]{animation:shake-loop-grafana 7.4s ease-in-out infinite}
+.hero-stack-item[data-tech="helm"]{animation:shake-loop-helm 7.4s ease-in-out infinite}
 
 .tech-item[data-tech="nginx"]{animation:shake-loop-docker 7.4s ease-in-out infinite}
 .tech-item[data-tech="nodejs"]{animation:shake-loop-kubernetes 7.4s ease-in-out infinite}

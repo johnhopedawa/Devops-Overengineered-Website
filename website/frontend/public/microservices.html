@@ -233,9 +233,9 @@
         <div style="width: 100%;">
           <p class="stack-title" style="margin-bottom:6px;">Microservices</p>
           <h1 class="hero-name">The journey to 57 deliberately over-engineered services</h1>
-          <p class="tagline">2 down, 55 to go. Each service is independently deployable, containerized, and has its own purpose—even if that purpose is questionable.</p>
+          <p class="tagline">2 live, 1 building, 54 to go. Each service is independently deployable, containerized, and has its own purpose—even if that purpose is questionable.</p>
           <div style="margin-top:10px;">
-            <span class="stack-hint">2 live services · 10 planned · 45 more ideas · All containerized</span>
+            <span class="stack-hint">2 live services · 1 building · 9 planned · 45 more ideas · All containerized</span>
           </div>
         </div>
       </div>
@@ -254,6 +254,7 @@
           </svg>
           <div class="progress-text">
             <div class="progress-number">2/57</div>
+            <!-- 1 building not counted until deployed -->
             <div class="progress-label">Services</div>
           </div>
         </div>
@@ -323,24 +324,32 @@
       </div>
     </div>
 
+    <!-- Building Services -->
+    <div class="stack-section" id="buildingServices">
+      <div class="stack-header">
+        <span class="stack-title">BUILDING (1)</span>
+      </div>
+
+      <div class="service-card building" data-status="building" data-tags="core utility metrics" data-search="metrics api prometheus monitoring observability cluster cpu ram nodes pods">
+        <div class="service-header">
+          <div class="service-name">Metrics API</div>
+          <div class="service-status building">Building</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Node.js + Prometheus</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/metrics</div>
+          <div class="service-meta-item"><strong>Repo:</strong> website/backend/metrics-api/</div>
+        </div>
+        <div class="service-description">
+          Queries Prometheus internally and exposes live cluster metrics — CPU per node, RAM per node, pod count, and node count — as a clean JSON endpoint. Keeps Prometheus private inside the cluster; the API Gateway proxies requests to it.
+        </div>
+      </div>
+    </div>
+
     <!-- Upcoming Services -->
     <div class="stack-section" id="upcomingServices">
       <div class="stack-header">
-        <span class="stack-title">UPCOMING SERVICES (55)</span>
-      </div>
-
-      <div class="service-card idea" data-status="idea" data-tags="utility metrics" data-search="metrics api prometheus monitoring observability">
-        <div class="service-header">
-          <div class="service-name">Metrics Aggregator API</div>
-          <div class="service-status idea">Idea</div>
-        </div>
-        <div class="service-meta">
-          <div class="service-meta-item"><strong>Stack:</strong> Go + Prometheus</div>
-          <div class="service-meta-item"><strong>Endpoint:</strong> /api/metrics</div>
-        </div>
-        <div class="service-description">
-          Collects and aggregates Prometheus metrics from all services. Provides unified endpoint for dashboard consumption and alerts.
-        </div>
+        <span class="stack-title">UPCOMING SERVICES (54)</span>
       </div>
 
       <div class="service-card idea" data-status="idea" data-tags="utility auth" data-search="authentication auth jwt tokens security oauth">

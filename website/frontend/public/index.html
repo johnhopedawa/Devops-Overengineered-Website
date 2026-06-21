@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>John Hope Dawa — DevOps Engineer</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=11.88" />
+  <link rel="stylesheet" href="styles.css?v=11.93" />
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js"></script>
 </head>
 <body>
@@ -136,6 +136,10 @@
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes">
               <div class="name">Kubernetes</div>
             </div>
+            <div class="hero-stack-item" data-tech="helm">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/helm/helm-original.svg" alt="Helm">
+              <div class="name">Helm</div>
+            </div>
             <div class="hero-stack-item" data-tech="terraform">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform">
               <div class="name">Terraform</div>
@@ -144,9 +148,9 @@
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP">
               <div class="name">GCP</div>
             </div>
-            <div class="hero-stack-item" data-tech="jenkins">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins">
-              <div class="name">Jenkins</div>
+            <div class="hero-stack-item" data-tech="argocd">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/argocd/argocd-original.svg" alt="ArgoCD">
+              <div class="name">ArgoCD</div>
             </div>
             <div class="hero-stack-item" data-tech="prometheus">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" alt="Prometheus">
@@ -440,73 +444,25 @@
           title: 'Docker',
           body: `
             <div class="tech-modal-section">
-              <h3>What is Docker?</h3>
-              <p>Docker packages applications and their dependencies into lightweight containers that run consistently across any environment.</p>
+              <div class="resume-buttons">
+                <a href="https://hub.docker.com/u/johnhopedawa" target="_blank" rel="noopener" class="resume-btn-primary">Browse Images on Docker Hub →</a>
+              </div>
             </div>
             <div class="tech-modal-section">
-              <h3>How It's Being Used Here</h3>
-              <p>Every service on this website runs in a Docker container. The plan is to build once, publish to Docker Hub, pull the same tagged images locally and in production.</p>
-              <p>Browse images: <a href="https://hub.docker.com/u/johnhopedawa" target="_blank" rel="noopener">hub.docker.com/u/johnhopedawa</a></p>
+              <h3>What It Does</h3>
+              <p>Docker packages an application and everything it needs to run into a single portable container. The same container runs identically on your laptop, a Raspberry Pi, or a cloud server — no "works on my machine" surprises.</p>
             </div>
             <div class="tech-modal-section">
-              <h3>Dockerfiles</h3>
-              <p><strong>website/frontend/Dockerfile</strong> — NGINX static frontend:</p>
-              <div class="tech-modal-code"><pre>FROM nginx:1.27-alpine
-
-WORKDIR /usr/share/nginx/html
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY ./public .
-
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]</pre></div>
-              <p><strong>website/backend/resume-api/Dockerfile</strong> — Node.js Resume API:</p>
-              <div class="tech-modal-code"><pre>FROM node:20-alpine
-
-WORKDIR /app
-
-COPY package*.json .
-RUN npm ci --only=production
-
-COPY . .
-
-EXPOSE 3000
-CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
+              <h3>How It's Used Here</h3>
+              <p>Every service on this website is a Docker container. When code is pushed to GitHub, Actions automatically builds new images for both x86 and ARM architectures (so the same image runs on the mini PCs and the Raspberry Pi), then publishes them to Docker Hub.</p>
+              <p>• <strong>4 images</strong> — frontend, api-gateway, resume-api, gcp-health-api</p>
+              <p>• <strong>Multi-arch</strong> — linux/amd64 + linux/arm64 built in one pipeline</p>
+              <p>• <strong>Tagged</strong> — latest + commit SHA so you can roll back to any version</p>
             </div>
             <div class="tech-modal-section">
-              <h3>Docker Compose</h3>
-              <p>This stack is currently living in docker-compose; although it's now moving to a full Kubernetes workflow:</p>
-              <div class="tech-modal-code"><pre>services:
-  nginx:
-    build: ./website/frontend
-    networks:
-      - backend
-    ports:
-      - "80:80"
-    depends_on:
-      - resume-api
-
-  resume-api:
-    build: ./website/backend/resume-api
-    env_file:
-      - .env
-    networks:
-      - resume-api
-      - backend
-
-  mongodb:
-    image: mongo:8
-    networks:
-      - resume-api
-
-networks:
-  backend:
-  resume-api:</pre></div>
-            </div>
-            <div class="tech-modal-section">
-              <h3>What's Next</h3>
-              <p>GitHub Actions and Jenkins wired together so every push triggers automatic builds, scans, and deploys across the cluster.</p>
-              <p><strong>Final boss:</strong> a fully hands-free pipeline running the whole thing.</p>
+              <h3>Local Development</h3>
+              <p>The entire stack runs locally with one command — no Kubernetes needed for day-to-day development:</p>
+              <div class="tech-modal-code"><pre>docker-compose up</pre></div>
             </div>
           `
         },
@@ -514,45 +470,25 @@ networks:
           title: 'Kubernetes (K3s)',
           body: `
             <div class="tech-modal-section">
-              <h3>What is Kubernetes?</h3>
-              <p>Kubernetes is an open-source container orchestration platform that automates deployment, scaling, and management of containerized applications.</p>
+              <h3>What It Does</h3>
+              <p>Kubernetes is the system that keeps this website running. It decides which server each container runs on, automatically restarts anything that crashes, routes traffic, and manages rolling updates — all without downtime.</p>
             </div>
             <div class="tech-modal-section">
-              <h3>How It's Being Used Here</h3>
-              <p>This website runs on a K3s cluster (lightweight Kubernetes) with 3 nodes running on bare-metal hardware. All services are orchestrated with deployments, services, and ingress controllers.</p>
-            </div>
-            <div class="tech-modal-section">
-              <h3>Cluster Architecture</h3>
-              <p>Here's a picture of the K3s cluster currently running this website!</p>
+              <h3>The Physical Cluster</h3>
               <img src="assets/images/cluster.jpg" alt="K3s 3-Node Cluster" style="width:100%;border-radius:8px;margin-bottom:16px;border:1px solid var(--border);">
-              <p><strong>K3s Cluster:</strong> 3-node bare-metal cluster</p>
-              <p><strong>Nodes:</strong></p>
-              <p>• 1x MQ910 mini computer (Master Node)</p>
-              <p>• 1x MQ910 mini computer (Worker Node)</p>
-              <p>• 1x Raspberry Pi (Worker Node)</p>
-              <p><strong>Current Deployment:</strong></p>
-              <div class="tech-modal-code"><pre>Services Running:
-├─ frontend-deployment (1 replica)
-├─ api-gateway-deployment (1 replica)
-├─ resume-api-deployment (1 replica)
-└─ mongodb-deployment (1 replica)
-
-ClusterIP Services:
-├─ frontend-service (port 80)
-├─ api-gateway-service (port 3000)
-├─ resume-api-service (port 3001)
-└─ mongodb-service (port 27017)
-
-Ingress:
-└─ frontend-ingress (routes traffic to cluster)</pre></div>
+              <p>This is the actual hardware running this website — 3 machines sitting on a shelf, forming a bare-metal Kubernetes cluster.</p>
+              <p>• <strong>1x MQ910 mini PC</strong> — Master Node (orchestrates the cluster)</p>
+              <p>• <strong>1x MQ910 mini PC</strong> — Worker Node</p>
+              <p>• <strong>1x Raspberry Pi</strong> — Worker Node</p>
             </div>
             <div class="tech-modal-section">
-              <h3>Why K3s?</h3>
-              <p>K3s is a lightweight version of Kubernetes (K8s) designed for resource-constrained environments. It uses less memory and runs perfectly on Raspberry Pi and mini PCs.</p>
-            </div>
-            <div class="tech-modal-section">
-              <h3>Deployment Files</h3>
-              <p>All services are defined as Kubernetes manifests with deployments, services, and ingress configurations stored in the repository.</p>
+              <h3>What's Running Right Now</h3>
+              <div class="tech-modal-code"><pre>frontend        → serves this website (NGINX)
+api-gateway     → routes requests to the right service
+resume-api      → serves resume data from MongoDB
+mongodb         → database (with persistent storage)
+
+All monitored live → grafana.johnhopedawa.com</pre></div>
             </div>
           `
         },
@@ -563,36 +499,23 @@ Ingress:
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
                 <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,208,132,0.15);border:1px solid #00d084;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:#00d084;letter-spacing:1px;">
                   <span style="width:8px;height:8px;border-radius:50%;background:#00d084;display:inline-block;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
-                  ONLINE — monitoring namespace
+                  COLLECTING METRICS RIGHT NOW
                 </span>
               </div>
               <div class="resume-buttons">
-                <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser" target="_blank" rel="noopener" class="resume-btn-primary">View Live Dashboards →</a>
+                <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser" target="_blank" rel="noopener" class="resume-btn-primary">See the Live Dashboard →</a>
               </div>
             </div>
             <div class="tech-modal-section">
-              <h3>Running Pods</h3>
-              <div class="tech-modal-code"><pre>NAME                                                    READY   STATUS
-prometheus-prom-stack-kube-prometheus-prometheus-0      2/2     Running
-prom-stack-prometheus-node-exporter-84nfw               1/1     Running  ← node 1
-prom-stack-prometheus-node-exporter-nb2gp               1/1     Running  ← node 2
-prom-stack-prometheus-node-exporter-pmlfh               1/1     Running  ← node 3
-prom-stack-kube-state-metrics-754486774-hgfsn           1/1     Running
-alertmanager-prom-stack-kube-prometheus-alertmanager-0  2/2     Running</pre></div>
+              <h3>What It Does</h3>
+              <p>Prometheus is the monitoring backbone of this cluster. Every 15 seconds it collects health data from all 3 nodes and every running service — CPU load, memory usage, pod status, network traffic — and stores it historically so you can see trends over time.</p>
             </div>
             <div class="tech-modal-section">
-              <h3>What It Monitors</h3>
-              <p>• <strong>3 bare-metal nodes</strong> — CPU, memory, disk via Node Exporter DaemonSet</p>
-              <p>• <strong>All pods</strong> in the <code>overengineered</code> namespace — frontend, api-gateway, resume-api, mongodb</p>
-              <p>• <strong>Kubernetes internals</strong> — kubelet, scheduler, controller manager</p>
-              <p>• <strong>Scrape interval:</strong> every 15 seconds · <strong>Retention:</strong> 15 days · <strong>Storage:</strong> 10Gi PV</p>
-            </div>
-            <div class="tech-modal-section">
-              <h3>Deployment</h3>
-              <p>Installed via Helm — <code>kube-prometheus-stack</code> bundles Prometheus, Grafana, AlertManager, Node Exporter, and kube-state-metrics in one chart:</p>
-              <div class="tech-modal-code"><pre>helm install prom-stack prometheus/kube-prometheus-stack \\
-  --namespace monitoring \\
-  -f helm/kube-prometheus-stack/values.yaml</pre></div>
+              <h3>What It's Watching</h3>
+              <p>• <strong>3 bare-metal nodes</strong> — CPU, memory and disk on each machine</p>
+              <p>• <strong>Every service</strong> — frontend, API gateway, resume API, MongoDB</p>
+              <p>• <strong>Kubernetes itself</strong> — pod restarts, scheduling, cluster health</p>
+              <p>• <strong>15 days</strong> of history kept on disk</p>
             </div>
           `
         },
@@ -603,32 +526,29 @@ alertmanager-prom-stack-kube-prometheus-alertmanager-0  2/2     Running</pre></d
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
                 <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,208,132,0.15);border:1px solid #00d084;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:#00d084;letter-spacing:1px;">
                   <span style="width:8px;height:8px;border-radius:50%;background:#00d084;display:inline-block;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
-                  ONLINE — grafana.johnhopedawa.com
+                  LIVE — open right now, no login needed
                 </span>
               </div>
-              <div class="resume-buttons">
-                <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser" target="_blank" rel="noopener" class="resume-btn-primary">Open Grafana →</a>
+              <div style="display:flex;align-items:center;gap:14px;">
+                <div class="resume-buttons" style="margin-top:0;">
+                  <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser&refresh=5s" target="_blank" rel="noopener" class="resume-btn-primary">Open Live Dashboard →</a>
+                </div>
+                <span style="color:var(--muted);font-size:13px;white-space:nowrap;">Refreshes every 5s</span>
               </div>
             </div>
             <div class="tech-modal-section">
-              <h3>Live Dashboards</h3>
-              <div class="tech-modal-code"><pre>Kubernetes / Compute Resources / Namespace (Workloads)
-Kubernetes / Compute Resources / Node (Pods)
-Kubernetes / Compute Resources / Pod
-Kubernetes / Networking / Cluster
-Kubernetes / Networking / Namespace (Pods)
-Kubernetes / Persistent Volumes
-Node Exporter / Nodes          ← bare-metal CPU, RAM, disk
-Node Exporter / USE Method / Cluster
-Prometheus / Overview          ← monitoring the monitor
-AlertManager / Overview</pre></div>
+              <h3>What You'll See</h3>
+              <p>A real-time view of this website's infrastructure — the actual servers keeping this site running, updated every 5 seconds from live data.</p>
+              <p>• <strong>Pods table</strong> — every running service, which node it's on, whether it's healthy</p>
+              <p>• <strong>CPU graph</strong> — live usage across all 3 nodes over the last 6 hours</p>
+              <p>• <strong>RAM per service</strong> — how much memory each service is actually using right now</p>
             </div>
             <div class="tech-modal-section">
-              <h3>Infrastructure</h3>
-              <p>• <strong>Ingress:</strong> Traefik routing <code>grafana.johnhopedawa.com</code> → Grafana pod</p>
-              <p>• <strong>TLS:</strong> Cloudflare wildcard origin certificate (<code>*.johnhopedawa.com</code>)</p>
-              <p>• <strong>Auth:</strong> Credentials stored as Kubernetes Secret in <code>monitoring</code> namespace — never in git</p>
-              <p>• <strong>Data source:</strong> Prometheus auto-configured by Helm chart on install</p>
+              <h3>Current Memory Usage</h3>
+              <p>• <strong>MongoDB</strong> — 54.6 MB (database)</p>
+              <p>• <strong>API Gateway</strong> — 28.5 MB (request routing)</p>
+              <p>• <strong>Resume API</strong> — 25.2 MB (backend)</p>
+              <p>• <strong>Frontend</strong> — 3.5 MB (NGINX serving static files)</p>
             </div>
           `
         },
@@ -636,75 +556,25 @@ AlertManager / Overview</pre></div>
           title: 'Terraform',
           body: `
             <div class="tech-modal-section">
-              <h3>What is Terraform?</h3>
-              <p>Terraform is an infrastructure-as-code tool that lets you build, change, and version infrastructure safely and efficiently using declarative configuration files.</p>
+              <h3>What It Does</h3>
+              <p>Instead of clicking through cloud dashboards to set up servers, Terraform lets you describe your infrastructure in code. You write what you want, run one command, and it builds it — reproducibly, every time. It's stored in git so the entire cloud setup is version-controlled.</p>
             </div>
             <div class="tech-modal-section">
-              <h3>How It's Being Used Here</h3>
-              <p>Terraform is used to provision and manage the GCP Cloud Run service that hosts the GCP Health API. All infrastructure is defined as code and version-controlled in the repository.</p>
+              <h3>How It's Used Here</h3>
+              <p>Terraform provisions the GCP Cloud Run service that hosts the health check API. The entire cloud setup — region, CPU limits, auto-scaling rules, container image — is defined in one file and deployed automatically.</p>
+              <p>• <strong>0 manual clicks</strong> in the GCP console — everything is code</p>
+              <p>• <strong>Auto-scales</strong> from 0 to 3 instances based on traffic</p>
+              <p>• <strong>Scales to zero</strong> when idle — costs nothing when not in use</p>
             </div>
             <div class="tech-modal-section">
-              <h3>Infrastructure Configuration</h3>
-              <p><strong>terraform/GCP_CloudRun/main.tf</strong> - Cloud Run service definition:</p>
-              <div class="tech-modal-code"><pre>resource "google_cloud_run_service" "gcp_health_api" {
-  name     = "gcp-health-api"
-  location = var.region
-
-  template {
-    spec {
-      containers {
-        image = "gcr.io/john-devops/gcp-health-api:latest"
-
-        ports {
-          container_port = 8080
-        }
-
-        resources {
-          limits = {
-            cpu    = "1"
-            memory = "512Mi"
-          }
-        }
-      }
-
-      container_concurrency = 80
-      timeout_seconds       = 300
-    }
-
-    metadata {
-      annotations = {
-        "autoscaling.knative.dev/minScale" = "0"
-        "autoscaling.knative.dev/maxScale" = "3"
-      }
-    }
-  }
-}</pre></div>
-            </div>
-            <div class="tech-modal-section">
-              <h3>Deployment Workflow</h3>
-              <p><strong>1. Build:</strong> GitHub Actions builds the Docker image and pushes to Docker Hub</p>
-              <p><strong>2. Copy:</strong> Crane copies the image from Docker Hub to Google Container Registry</p>
-              <p><strong>3. Deploy:</strong> Terraform applies the configuration to create/update Cloud Run service</p>
-              <p><strong>4. Verify:</strong> Service is accessible at the generated Cloud Run URL</p>
-            </div>
-            <div class="tech-modal-section">
-              <h3>Deployment Script</h3>
-              <p><strong>terraform/GCP_CloudRun/deploy.sh</strong>:</p>
-              <div class="tech-modal-code"><pre># Install crane if not present
-# Copy image from Docker Hub to GCR
-crane copy johnhopedawa/overengineered-gcp-health-api:latest \\
-  gcr.io/john-devops/gcp-health-api:latest
-
-# Deploy with Terraform
-terraform init
-terraform apply -auto-approve</pre></div>
-            </div>
-            <div class="tech-modal-section">
-              <h3>Why Terraform?</h3>
-              <p><strong>Infrastructure as Code:</strong> All cloud resources are version-controlled and reproducible</p>
-              <p><strong>Declarative:</strong> Define the desired state, Terraform handles the how</p>
-              <p><strong>State Management:</strong> Tracks current infrastructure state and calculates minimal changes</p>
-              <p><strong>Multi-Cloud:</strong> Can manage infrastructure across GCP, AWS, Azure with same workflow</p>
+              <h3>Deployment Pipeline</h3>
+              <p>GitHub Actions builds the image → pushes to Docker Hub → Terraform picks it up and deploys to GCP Cloud Run in one automated flow.</p>
+              <div class="tech-modal-code"><pre>git push
+  ↓ GitHub Actions builds Docker image
+  ↓ Pushes to Docker Hub
+  ↓ Crane copies image → Google Container Registry
+  ↓ terraform apply
+  ↓ Live on GCP Cloud Run</pre></div>
             </div>
           `
         },
@@ -719,14 +589,44 @@ terraform apply -auto-approve</pre></div>
             </div>
           `
         },
-        jenkins: {
-          title: 'Jenkins',
+        argocd: {
+          title: 'ArgoCD',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What It Does</h3>
+              <p>ArgoCD watches a Git repository and automatically deploys whatever is in it to Kubernetes — no manual <code>kubectl apply</code> needed. If the repo changes, the cluster changes. If someone manually edits the cluster, ArgoCD corrects it back to match the repo.</p>
+              <p>This is called <strong>GitOps</strong>: Git is the single source of truth for what should be running.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Why ArgoCD Instead of Jenkins</h3>
+              <p>GitHub Actions already handles building and testing code — that's CI (Continuous Integration). Jenkins would be redundant there.</p>
+              <p>ArgoCD handles the other half: CD (Continuous Deployment). It picks up after GitHub Actions, sees a new image was pushed, and rolls it out to the cluster automatically.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Coming Soon</h3>
+              <p>Currently deployments are triggered manually with <code>kubectl apply</code>. ArgoCD will automate that last step — every git push goes all the way to production without touching the server.</p>
+            </div>
+          `
+        },
+        helm: {
+          title: 'Helm',
+          body: `
+            <div class="tech-modal-section">
+              <h3>What It Does</h3>
+              <p>Helm is a package manager for Kubernetes. Instead of writing and managing dozens of individual yaml files for a complex tool, you run one command and Helm installs everything — the Deployments, Services, ConfigMaps, RBAC rules, and more — all pre-configured and wired together.</p>
+              <p>Think of it like <code>npm install</code> but for Kubernetes applications.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It's Used Here</h3>
+              <p>Helm deployed the entire monitoring stack on this cluster in a single command:</p>
+              <div class="tech-modal-code"><pre>helm install prom-stack prometheus-community/kube-prometheus-stack \
+  --namespace monitoring \
+  --values helm/kube-prometheus-stack/values.yaml</pre></div>
+              <p>That one command spun up Prometheus, Grafana, AlertManager, Node Exporter (on all 3 nodes), and kube-state-metrics — roughly 15 Kubernetes objects — with custom config from the values file in this repo.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Why Not Just Write the Yamls?</h3>
+              <p>The kube-prometheus-stack Helm chart is maintained by the Prometheus community and battle-tested across thousands of clusters. Writing those yamls from scratch would take days and miss edge cases. Helm lets you customize what you need (retention period, storage size, ingress config) while the community handles the rest.</p>
             </div>
           `
         },

@@ -24,8 +24,21 @@ services:
     - "3000:3000"
    depends_on:
     - resume-api
+    - metrics-api
    volumes:
     - ../website/backend/api-gateway:/app:ro
+    - /app/node_modules
+
+  metrics-api:
+   build: ../website/backend/metrics-api
+   environment:
+    - PROMETHEUS_URL=${PROMETHEUS_URL:-http://localhost:9090}
+   networks:
+    - backend
+   ports:
+    - "3002:3002"
+   volumes:
+    - ../website/backend/metrics-api:/app:ro
     - /app/node_modules
 
   resume-api:

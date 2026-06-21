@@ -40,8 +40,21 @@ app.use('/api/gcp-health', createProxyMiddleware({
   }
 }));
 
+// Route: Metrics API
+app.use('/api/metrics', createProxyMiddleware({
+  target: 'http://metrics-api-service:3002',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/api/metrics': '/metrics',
+  },
+  onError: (err, req, res) => {
+    console.error('Metrics API proxy error:', err);
+    res.status(503).json({ error: 'Metrics service unavailable' });
+  }
+}));
+
 // Future APIs will be added here
-// app.use('/api/blog', createProxyMiddleware({ target: 'http://blog-api:3002', ... }));
+// app.use('/api/blog', createProxyMiddleware({ target: 'http://blog-api:3003', ... }));
 
 // 404 handler
 app.use((req, res) => {
