@@ -27,6 +27,9 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
+        env:
+          - name: GCP_HEALTH_API_URL
+            value: "https://gcp-health-api-jpawjztt4a-uw.a.run.app"
         resources:
           requests:
             memory: "64Mi"
