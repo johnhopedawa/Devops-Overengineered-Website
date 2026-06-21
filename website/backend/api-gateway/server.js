@@ -68,4 +68,5 @@ app.listen(PORT, () => {
   console.log('  - GET /api/resume');
   console.log('  - GET /api/gcp-health (proxies to Cloud Run)');
   console.log('  - GET /api/gcp-health/api/health (Cloud Run JSON endpoint)');
+  console.log('  - GET /api/metrics (proxies to metrics-api-service:3002)');
 });
