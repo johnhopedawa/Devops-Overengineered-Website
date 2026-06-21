@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Microservices — John Hope Dawa</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=11.94" />
+  <link rel="stylesheet" href="styles.css?v=11.95" />
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js"></script>
 
 </head>
@@ -80,9 +80,9 @@
         <div style="width: 100%;">
           <p class="stack-title" style="margin-bottom:6px;">Microservices</p>
           <h1 class="hero-name">The journey to 57 deliberately over-engineered services</h1>
-          <p class="tagline">2 live, 1 building, 54 to go. Each service is independently deployable, containerized, and has its own purpose—even if that purpose is questionable.</p>
+          <p class="tagline">3 live, 54 to go. Each service is independently deployable, containerized, and has its own purpose—even if that purpose is questionable.</p>
           <div style="margin-top:10px;">
-            <span class="stack-hint">2 live services · 1 building · 9 planned · 45 more ideas · All containerized</span>
+            <span class="stack-hint">3 live services · 9 planned · 45 more ideas · All containerized</span>
           </div>
         </div>
       </div>
@@ -100,8 +100,7 @@
             <circle class="progress" cx="100" cy="100" r="90"></circle>
           </svg>
           <div class="progress-text">
-            <div class="progress-number">2/57</div>
-            <!-- 1 building not counted until deployed -->
+            <div class="progress-number">3/57</div>
             <div class="progress-label">Services</div>
           </div>
         </div>
@@ -137,7 +136,7 @@
     <!-- Live Services -->
     <div class="stack-section" id="liveServices">
       <div class="stack-header">
-        <span class="stack-title">LIVE SERVICES (2)</span>
+        <span class="stack-title">LIVE SERVICES (3)</span>
       </div>
 
       <div class="service-card live" data-status="live" data-tags="core resume" data-search="resume api node mongodb json" data-api="resume-seed">
@@ -169,18 +168,11 @@
           Serverless health check API deployed on GCP Cloud Run. Demonstrates hybrid cloud architecture with rate limiting (50 req/hr per IP). Auto-scales from 0 to 3 instances.
         </div>
       </div>
-    </div>
 
-    <!-- Building Services -->
-    <div class="stack-section" id="buildingServices">
-      <div class="stack-header">
-        <span class="stack-title">BUILDING (1)</span>
-      </div>
-
-      <div class="service-card building" data-status="building" data-tags="core utility metrics" data-search="metrics api prometheus monitoring observability cluster cpu ram nodes pods">
+      <div class="service-card live" data-status="live" data-tags="core utility metrics" data-search="metrics api prometheus monitoring observability cluster cpu ram nodes pods" data-api="metrics-api">
         <div class="service-header">
-          <div class="service-name">Metrics API</div>
-          <div class="service-status building">Building</div>
+          <div class="service-name">Live Metrics API</div>
+          <div class="service-status live">Live</div>
         </div>
         <div class="service-meta">
           <div class="service-meta-item"><strong>Stack:</strong> Node.js + Prometheus</div>
@@ -527,6 +519,38 @@
               <p><strong>Implementation:</strong> express-rate-limit with proxy trust enabled</p>
               <p><strong>Auto-Scaling:</strong> Scales to zero when idle (no cost)</p>
               <p><strong>Cost Optimization:</strong> Pay only for actual request processing time</p>
+            </div>
+          `
+        },
+        'metrics-api': {
+          title: 'Live Metrics API',
+          body: `
+            <div class="tech-modal-section">
+              <h3>Live Endpoint</h3>
+              <div class="resume-buttons">
+                <a href="/api/metrics" target="_blank" class="resume-btn-primary">JSON Format</a>
+              </div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What is the Live Metrics API?</h3>
+              <p>A Node.js/Express microservice that runs inside the k3s cluster and queries Prometheus directly over the cluster's internal network. It exposes a single clean endpoint the frontend uses to power the live stat cards on the home page.</p>
+              <p>Prometheus never needs to be exposed to the internet — the Metrics API acts as the only door in, and the API Gateway is the only door to the Metrics API.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What it returns</h3>
+              <p><strong>GET /api/metrics</strong> — returns a JSON object with four fields:</p>
+              <p><strong>cpu</strong> — average CPU usage (%) across all cluster nodes</p>
+              <p><strong>memory</strong> — average RAM usage (%) across all cluster nodes</p>
+              <p><strong>pods</strong> — number of running pods in the overengineered namespace</p>
+              <p><strong>nodes</strong> — total number of nodes registered in the cluster</p>
+              <div class="tech-modal-code"><pre>curl https://johnhopedawa.com/api/metrics</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It Works</h3>
+              <p><strong>1. Frontend fetch:</strong> Every 30 seconds, the home page calls /api/metrics and updates the stat cards with fresh numbers.</p>
+              <p><strong>2. API Gateway proxy:</strong> The request hits the API Gateway (port 3000), which strips /api/metrics and forwards it to the Metrics API service on port 3002 inside the cluster.</p>
+              <p><strong>3. PromQL queries:</strong> The Metrics API fires four Prometheus queries in parallel — CPU per node, RAM per node, pod count, node count — using the cluster-internal DNS address for Prometheus.</p>
+              <p><strong>4. Response:</strong> Results are averaged and returned as a flat JSON object. If Prometheus is unreachable, the API returns a 503 and the frontend keeps showing the last good value.</p>
             </div>
           `
         }

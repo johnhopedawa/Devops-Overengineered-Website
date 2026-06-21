@@ -962,10 +962,20 @@ CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
           title: 'Memory Usage',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Available Yet</h3>
-              <p>This metric is not currently available. An API will be set up in the future to expose real-time memory usage from Prometheus.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What You're Looking At</h3>
+              <p>The percentage of RAM currently in use, averaged across all 3 cluster nodes. So if one node is using 40%, another 55%, and another 50%, the card shows <strong>48.3%</strong>.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It Gets Here</h3>
+              <p>Prometheus scrapes memory stats from Node Exporter running on each machine every 15 seconds. The Metrics API queries Prometheus using PromQL, averages the results, and this page polls it every 30 seconds.</p>
+              <div class="tech-modal-code"><pre>Browser → /api/metrics → Metrics API → Prometheus</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>See the Full Breakdown</h3>
+              <p>The Grafana dashboard shows per-node memory over time — useful for spotting which node is under pressure.</p>
+              <div class="resume-buttons">
+                <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser&refresh=5s" target="_blank" rel="noopener" class="resume-btn-primary">Open Grafana Dashboard →</a>
+              </div>
             </div>
           `
         },
@@ -973,32 +983,60 @@ CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
           title: 'CPU Usage',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Available Yet</h3>
-              <p>This metric is not currently available. An API will be set up in the future to expose real-time CPU usage from Prometheus.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What You're Looking At</h3>
+              <p>The percentage of CPU currently in use, averaged across all 3 cluster nodes. A low number means the cluster is mostly idle. A high number means services are working hard.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It Gets Here</h3>
+              <p>Prometheus tracks CPU idle time on every node. The Metrics API flips that into usage percentage using PromQL, averages across all nodes, and this page polls every 30 seconds.</p>
+              <div class="tech-modal-code"><pre>100 - avg(idle time across all nodes) = CPU usage %</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>See the Full Breakdown</h3>
+              <p>Grafana shows per-node CPU over time so you can see exactly which machine is doing the work.</p>
+              <div class="resume-buttons">
+                <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser&refresh=5s" target="_blank" rel="noopener" class="resume-btn-primary">Open Grafana Dashboard →</a>
+              </div>
             </div>
           `
         },
-        commits: {
-          title: 'GitHub Commits',
+        pods: {
+          title: 'Pods Running',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Available Yet</h3>
-              <p>This metric is not currently available. An API will be set up in the future to fetch live commit statistics from GitHub.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What You're Looking At</h3>
+              <p>The number of pods currently running in the <code>overengineered</code> namespace — the namespace where this website's services live. Each pod is one running instance of a service.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What's Running</h3>
+              <p>• <strong>Frontend</strong> — NGINX serving this website</p>
+              <p>• <strong>API Gateway</strong> — routes requests to the right microservice</p>
+              <p>• <strong>Resume API</strong> — serves resume data from MongoDB</p>
+              <p>• <strong>Metrics API</strong> — queries Prometheus and powers these cards</p>
+              <p>• <strong>MongoDB</strong> — database for resume data</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It Gets Here</h3>
+              <p>Prometheus tracks pod lifecycle via kube-state-metrics. The Metrics API queries the count and passes it through to this page every 30 seconds.</p>
             </div>
           `
         },
-        deploytime: {
-          title: 'Deploy Time',
+        nodes: {
+          title: 'Nodes Online',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Available Yet</h3>
-              <p>This metric is not currently available. An API will be set up in the future to track deployment times from the CI/CD pipeline.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What You're Looking At</h3>
+              <p>The number of physical machines (nodes) currently active in the K3s cluster. This website runs on a 3-node bare-metal cluster — 3 mini PCs sitting on a shelf.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>The Cluster</h3>
+              <p>• <strong>1 control plane node</strong> — manages the cluster, schedules workloads</p>
+              <p>• <strong>2 worker nodes</strong> — run the actual services and pods</p>
+              <p>If a node goes offline (power cut, crash), the cluster reschedules its pods to the remaining nodes automatically.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It Gets Here</h3>
+              <p>Prometheus tracks node status via kube-state-metrics. The Metrics API counts active nodes and returns it alongside the other metrics every 30 seconds.</p>
             </div>
           `
         },
