@@ -635,20 +635,24 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
           body: `
             <div class="tech-modal-section">
               <h3>What It Does</h3>
-              <p>Helm is a package manager for Kubernetes. Instead of writing and managing dozens of individual yaml files for a complex tool, you run one command and Helm installs everything — the Deployments, Services, ConfigMaps, RBAC rules, and more — all pre-configured and wired together.</p>
+              <p>Helm is a package manager for Kubernetes. Instead of managing dozens of individual YAML files, you define all your configuration in a single <code>values.yaml</code> and Helm renders and deploys everything — Deployments, Services, ConfigMaps, Ingress, PVCs — wired together and versioned as one release.</p>
               <p>Think of it like <code>npm install</code> but for Kubernetes applications.</p>
             </div>
             <div class="tech-modal-section">
               <h3>How It's Used Here</h3>
-              <p>Helm deployed the entire monitoring stack on this cluster in a single command:</p>
+              <p>Helm manages two charts on this cluster:</p>
+              <p><strong>1. The full application stack</strong> — every service on this site is deployed via a custom chart:</p>
+              <div class="tech-modal-code"><pre>helm install overengineered ./helm/overengineered \
+  -n overengineered --create-namespace</pre></div>
+              <p>That single command deploys the frontend, api-gateway, resume-api, metrics-api, MongoDB, all services, the Traefik ingress, and the resume ConfigMap — 13 Kubernetes objects in one shot.</p>
+              <p><strong>2. The monitoring stack</strong> — Prometheus, Grafana, AlertManager, and Node Exporter:</p>
               <div class="tech-modal-code"><pre>helm install prom-stack prometheus-community/kube-prometheus-stack \
   --namespace monitoring \
   --values helm/kube-prometheus-stack/values.yaml</pre></div>
-              <p>That one command spun up Prometheus, Grafana, AlertManager, Node Exporter (on all 3 nodes), and kube-state-metrics — roughly 15 Kubernetes objects — with custom config from the values file in this repo.</p>
             </div>
             <div class="tech-modal-section">
-              <h3>Why Not Just Write the Yamls?</h3>
-              <p>The kube-prometheus-stack Helm chart is maintained by the Prometheus community and battle-tested across thousands of clusters. Writing those yamls from scratch would take days and miss edge cases. Helm lets you customize what you need (retention period, storage size, ingress config) while the community handles the rest.</p>
+              <h3>Why Helm Over Raw Yamls?</h3>
+              <p>Raw YAML files are static — changing the image tag or a resource limit means editing multiple files. With Helm, everything configurable lives in <code>values.yaml</code>. Deploying a new image tag is one flag: <code>--set image.tag=abc123</code>. Helm also tracks releases, so rollbacks are a single command.</p>
             </div>
           `
         },
