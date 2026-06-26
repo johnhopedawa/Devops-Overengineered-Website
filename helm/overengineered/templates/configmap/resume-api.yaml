@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: resume-api-config
+  namespace: {{ .Release.Namespace }}
+data:
+  MONGO_URL: {{ .Values.resumeApi.config.mongoUrl | quote }}
+  MONGO_DB_NAME: {{ .Values.resumeApi.config.mongoDbName | quote }}
+  USER_NAME: {{ .Values.resumeApi.config.userName | quote }}
+  USER_EMAIL: {{ .Values.resumeApi.config.userEmail | quote }}
+  USER_PHONE: {{ .Values.resumeApi.config.userPhone | quote }}
+  USER_LOCATION: {{ .Values.resumeApi.config.userLocation | quote }}

@@ -1,0 +1,80 @@
+# Deploy with:
+#   helm install overengineered ./helm/overengineered -n overengineered --create-namespace
+
+image:
+  repository: johnhopedawa
+  tag: latest
+  pullPolicy: Always
+
+apiGateway:
+  replicas: 1
+  gcpHealthApiUrl: "https://gcp-health-api-jpawjztt4a-uw.a.run.app"
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+
+frontend:
+  replicas: 1
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+
+metricsApi:
+  replicas: 1
+  prometheusUrl: "http://prometheus-operated.monitoring.svc.cluster.local:9090"
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+
+resumeApi:
+  replicas: 1
+  config:
+    mongoUrl: "mongodb://mongodb-service:27017"
+    mongoDbName: "resumeDB"
+    userName: "John Hope Dawa"
+    userEmail: "johnhope.dawa@gmail.com"
+    userPhone: "778-751-3049"
+    userLocation: "Coquitlam, BC"
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+
+mongodb:
+  replicas: 1
+  image:
+    repository: mongo
+    tag: "4.4.18"
+  storage: "1Gi"
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+
+ingress:
+  className: traefik
+  hosts:
+    - johnhopedawa.com
+    - www.johnhopedawa.com
+  tlsSecret: cloudflare-origin-cert
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"

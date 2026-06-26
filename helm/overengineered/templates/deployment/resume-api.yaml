@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resume-api-deployment
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: resume-api
+spec:
+  replicas: {{ .Values.resumeApi.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: resume-api
+  template:
+    metadata:
+      name: resume-api
+      labels:
+        app: resume-api
+    spec:
+      containers:
+        - name: resume-api
+          image: {{ .Values.image.repository }}/overengineered-resume-api:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 3001
+          envFrom:
+            - configMapRef:
+                name: resume-api-config
+          resources:
+            requests:
+              cpu: {{ .Values.resumeApi.resources.requests.cpu | quote }}
+              memory: {{ .Values.resumeApi.resources.requests.memory | quote }}
+            limits:
+              cpu: {{ .Values.resumeApi.resources.limits.cpu | quote }}
+              memory: {{ .Values.resumeApi.resources.limits.memory | quote }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3001
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3001
+            initialDelaySeconds: 5
+            periodSeconds: 5

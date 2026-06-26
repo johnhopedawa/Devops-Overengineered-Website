@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metrics-api-deployment
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: metrics-api
+spec:
+  replicas: {{ .Values.metricsApi.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: metrics-api
+  template:
+    metadata:
+      name: metrics-api
+      labels:
+        app: metrics-api
+    spec:
+      containers:
+        - name: metrics-api
+          image: {{ .Values.image.repository }}/overengineered-metrics-api:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 3002
+          env:
+            - name: PROMETHEUS_URL
+              value: {{ .Values.metricsApi.prometheusUrl | quote }}
+          resources:
+            requests:
+              cpu: {{ .Values.metricsApi.resources.requests.cpu | quote }}
+              memory: {{ .Values.metricsApi.resources.requests.memory | quote }}
+            limits:
+              cpu: {{ .Values.metricsApi.resources.limits.cpu | quote }}
+              memory: {{ .Values.metricsApi.resources.limits.memory | quote }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3002
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3002
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
