@@ -3,7 +3,7 @@
 
 image:
   repository: johnhopedawa
-  tag: latest
+  tag: main-3067ecc
   pullPolicy: Always
 
 apiGateway:
