@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>John Hope Dawa — DevOps Engineer</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=11.96" />
+  <link rel="stylesheet" href="styles.css?v=11.97" />
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js"></script>
 </head>
 <body>
@@ -187,7 +187,7 @@
           <div class="cluster-diagram">
             <!-- Master Node -->
             <div class="diagram-master">
-              <div class="infra-node master-node">
+              <div class="infra-node master-node" data-tech="kubernetes">
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
                 <div class="node-label">MQ910 Mini PC</div>
                 <div class="node-role master">Master Node</div>
@@ -199,7 +199,7 @@
             <div class="diagram-workers">
               <div class="worker-wrapper">
                 <div class="worker-line"></div>
-                <div class="infra-node worker-node">
+                <div class="infra-node worker-node" data-tech="kubernetes">
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
                   <div class="node-label">MQ910 Mini PC</div>
                   <div class="node-role worker">Worker Node</div>
@@ -207,7 +207,7 @@
               </div>
               <div class="worker-wrapper">
                 <div class="worker-line"></div>
-                <div class="infra-node worker-node">
+                <div class="infra-node worker-node" data-tech="kubernetes">
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/raspberrypi/raspberrypi-original.svg" alt="Raspberry Pi">
                   <div class="node-label">Raspberry Pi</div>
                   <div class="node-role worker">Worker Node</div>
@@ -215,7 +215,7 @@
               </div>
               <div class="worker-wrapper">
                 <div class="worker-line"></div>
-                <div class="infra-node worker-node">
+                <div class="infra-node worker-node" data-tech="gcp">
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP">
                   <div class="node-label">GCP</div>
                   <div class="node-role worker">Cloud Run</div>
@@ -438,6 +438,14 @@
       });
     });
 
+    // Add click handlers to infra node cards
+    document.querySelectorAll('.infra-node[data-tech]').forEach(node=>{
+      node.style.cursor = 'pointer';
+      node.addEventListener('click', ()=>{
+        openTechModal(node.dataset.tech);
+      });
+    });
+
     // Live metrics
     function avg(arr){ return arr.reduce((s,n)=>s+parseFloat(n.value),0)/arr.length; }
     function setMetric(stat, value){
@@ -459,6 +467,7 @@
     fetchMetrics();
     setInterval(fetchMetrics, 30000);
 
+
     // Tech content generator
     function getTechContent(tech){
       const contents = {
@@ -472,7 +481,7 @@
             </div>
             <div class="tech-modal-section">
               <h3>What It Does</h3>
-              <p>Docker packages an application and everything it needs to run into a single portable container. The same container runs identically on your laptop, a Raspberry Pi, or a cloud server — no "works on my machine" surprises.</p>
+              <p>Docker packages an application and everything it needs to run into a single portable container. The same container runs identically on your laptop, a Raspberry Pi, or a cloud server, with no "works on my machine" surprises.</p>
             </div>
             <div class="tech-modal-section">
               <h3>How It's Used Here</h3>
@@ -483,7 +492,7 @@
             </div>
             <div class="tech-modal-section">
               <h3>Local Development</h3>
-              <p>The entire stack runs locally with one command — no Kubernetes needed for day-to-day development:</p>
+              <p>The entire stack runs locally with one command. No Kubernetes needed for day-to-day development:</p>
               <div class="tech-modal-code"><pre>docker-compose up</pre></div>
             </div>
           `
@@ -493,12 +502,12 @@
           body: `
             <div class="tech-modal-section">
               <h3>What It Does</h3>
-              <p>Kubernetes is the system that keeps this website running. It decides which server each container runs on, automatically restarts anything that crashes, routes traffic, and manages rolling updates — all without downtime.</p>
+              <p>Kubernetes is the system that keeps this website running. It decides which server each container runs on, automatically restarts anything that crashes, routes traffic, and manages rolling updates with no downtime.</p>
             </div>
             <div class="tech-modal-section">
               <h3>The Physical Cluster</h3>
               <img src="assets/images/cluster.jpg" alt="K3s 3-Node Cluster" style="width:100%;border-radius:8px;margin-bottom:16px;border:1px solid var(--border);">
-              <p>This is the actual hardware running this website — 3 machines sitting on a shelf, forming a bare-metal Kubernetes cluster.</p>
+              <p>This is the actual hardware running this website: 3 machines sitting on a shelf, forming a bare-metal Kubernetes cluster.</p>
               <p>• <strong>1x MQ910 mini PC</strong> — Master Node (orchestrates the cluster)</p>
               <p>• <strong>1x MQ910 mini PC</strong> — Worker Node</p>
               <p>• <strong>1x Raspberry Pi</strong> — Worker Node</p>
@@ -530,7 +539,7 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
             </div>
             <div class="tech-modal-section">
               <h3>What It Does</h3>
-              <p>Prometheus is the monitoring backbone of this cluster. Every 15 seconds it collects health data from all 3 nodes and every running service — CPU load, memory usage, pod status, network traffic — and stores it historically so you can see trends over time.</p>
+              <p>Prometheus is the monitoring backbone of this cluster. Every 15 seconds it collects health data from all 3 nodes and every running service (CPU load, memory usage, pod status, network traffic) and stores it historically so you can see trends over time.</p>
             </div>
             <div class="tech-modal-section">
               <h3>What It's Watching</h3>
@@ -560,7 +569,7 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
             </div>
             <div class="tech-modal-section">
               <h3>What You'll See</h3>
-              <p>A real-time view of this website's infrastructure — the actual servers keeping this site running, updated every 5 seconds from live data.</p>
+              <p>A real-time view of the actual servers keeping this site running, updated every 5 seconds from live data.</p>
               <p>• <strong>Pods table</strong> — every running service, which node it's on, whether it's healthy</p>
               <p>• <strong>CPU graph</strong> — live usage across all 3 nodes over the last 6 hours</p>
               <p>• <strong>RAM per service</strong> — how much memory each service is actually using right now</p>
@@ -579,11 +588,11 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
           body: `
             <div class="tech-modal-section">
               <h3>What It Does</h3>
-              <p>Instead of clicking through cloud dashboards to set up servers, Terraform lets you describe your infrastructure in code. You write what you want, run one command, and it builds it — reproducibly, every time. It's stored in git so the entire cloud setup is version-controlled.</p>
+              <p>Instead of clicking through cloud dashboards to set up servers, Terraform lets you describe your infrastructure in code. You write what you want, run one command, and it builds it reproducibly every time. It's stored in git so the entire cloud setup is version-controlled.</p>
             </div>
             <div class="tech-modal-section">
               <h3>How It's Used Here</h3>
-              <p>Terraform provisions the GCP Cloud Run service that hosts the health check API. The entire cloud setup — region, CPU limits, auto-scaling rules, container image — is defined in one file and deployed automatically.</p>
+              <p>Terraform provisions the GCP Cloud Run service that hosts the health check API. The entire cloud setup (region, CPU limits, auto-scaling rules, container image) is defined in one file and deployed automatically.</p>
               <p>• <strong>0 manual clicks</strong> in the GCP console — everything is code</p>
               <p>• <strong>Auto-scales</strong> from 0 to 3 instances based on traffic</p>
               <p>• <strong>Scales to zero</strong> when idle — costs nothing when not in use</p>
@@ -612,21 +621,46 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
           `
         },
         argocd: {
-          title: 'ArgoCD',
+          title: 'Argo CD',
           body: `
             <div class="tech-modal-section">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,208,132,0.15);border:1px solid #00d084;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:#00d084;letter-spacing:1px;">
+                  <span style="width:8px;height:8px;border-radius:50%;background:#00d084;display:inline-block;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
+                  GITOPS — MANAGING THIS CLUSTER
+                </span>
+              </div>
+              <div class="resume-buttons">
+                <a href="https://argocd.johnhopedawa.com" target="_blank" rel="noopener" class="resume-btn-primary">Open Argo CD UI →</a>
+              </div>
+            </div>
+            <div class="tech-modal-section">
               <h3>What It Does</h3>
-              <p>ArgoCD watches a Git repository and automatically deploys whatever is in it to Kubernetes — no manual <code>kubectl apply</code> needed. If the repo changes, the cluster changes. If someone manually edits the cluster, ArgoCD corrects it back to match the repo.</p>
-              <p>This is called <strong>GitOps</strong>: Git is the single source of truth for what should be running.</p>
+              <p>Argo CD watches a Git repository and keeps the Kubernetes cluster in sync with it. If the repo changes, the cluster is updated. If someone manually edits the cluster outside of Git, Argo CD flags it as out of sync and can correct it.</p>
+              <p>This is called <strong>GitOps</strong>: Git is the single source of truth for everything running in production.</p>
             </div>
             <div class="tech-modal-section">
-              <h3>Why ArgoCD Instead of Jenkins</h3>
-              <p>GitHub Actions already handles building and testing code — that's CI (Continuous Integration). Jenkins would be redundant there.</p>
-              <p>ArgoCD handles the other half: CD (Continuous Deployment). It picks up after GitHub Actions, sees a new image was pushed, and rolls it out to the cluster automatically.</p>
+              <h3>How It's Set Up Here</h3>
+              <p>Argo CD runs in the cluster and watches the Helm chart in this repo:</p>
+              <div class="tech-modal-code"><pre>Repo:      github.com/johnhopedawa/Devops-Overengineered-Website
+Chart:     helm/overengineered
+Namespace: overengineered
+Release:   overengineered</pre></div>
+              <p>Any change pushed to the chart or <code>values.yaml</code> puts the app into <strong>OutOfSync</strong>. Argo CD detects the drift and applies the new state to the cluster on the next sync.</p>
             </div>
             <div class="tech-modal-section">
-              <h3>Coming Soon</h3>
-              <p>Currently deployments are triggered manually with <code>kubectl apply</code>. ArgoCD will automate that last step — every git push goes all the way to production without touching the server.</p>
+              <h3>The Full Deployment Pipeline</h3>
+              <div class="tech-modal-code"><pre>git push
+  ↓ GitHub Actions builds Docker image
+  ↓ Pushes to Docker Hub
+  ↓ Argo CD detects repo change → OutOfSync
+  ↓ Manual sync applies Helm-rendered manifests
+  ↓ k3s rolls out new pods
+  ↓ johnhopedawa.com serves updated site</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>CI vs CD: Why Both?</h3>
+              <p>GitHub Actions owns the CI half: it builds, tests, and publishes the Docker image. Argo CD owns the CD half: it takes that image and deploys it to the cluster. Keeping them separate means the deployment layer is cluster-aware and version-controlled, not just a shell script in a pipeline.</p>
             </div>
           `
         },
@@ -635,7 +669,7 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
           body: `
             <div class="tech-modal-section">
               <h3>What It Does</h3>
-              <p>Helm is a package manager for Kubernetes. Instead of managing dozens of individual YAML files, you define all your configuration in a single <code>values.yaml</code> and Helm renders and deploys everything — Deployments, Services, ConfigMaps, Ingress, PVCs — wired together and versioned as one release.</p>
+              <p>Helm is a package manager for Kubernetes. Instead of managing dozens of individual YAML files, you define all your configuration in a single <code>values.yaml</code> and Helm renders and deploys everything: Deployments, Services, ConfigMaps, Ingress, and PVCs, all wired together and versioned as one release.</p>
               <p>Think of it like <code>npm install</code> but for Kubernetes applications.</p>
             </div>
             <div class="tech-modal-section">
@@ -644,7 +678,7 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
               <p><strong>1. The full application stack</strong> — every service on this site is deployed via a custom chart:</p>
               <div class="tech-modal-code"><pre>helm install overengineered ./helm/overengineered \
   -n overengineered --create-namespace</pre></div>
-              <p>That single command deploys the frontend, api-gateway, resume-api, metrics-api, MongoDB, all services, the Traefik ingress, and the resume ConfigMap — 13 Kubernetes objects in one shot.</p>
+              <p>That single command deploys the frontend, api-gateway, resume-api, metrics-api, MongoDB, all services, the Traefik ingress, and the resume ConfigMap. 13 Kubernetes objects in one shot.</p>
               <p><strong>2. The monitoring stack</strong> — Prometheus, Grafana, AlertManager, and Node Exporter:</p>
               <div class="tech-modal-code"><pre>helm install prom-stack prometheus-community/kube-prometheus-stack \
   --namespace monitoring \
@@ -652,7 +686,7 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
             </div>
             <div class="tech-modal-section">
               <h3>Why Helm Over Raw Yamls?</h3>
-              <p>Raw YAML files are static — changing the image tag or a resource limit means editing multiple files. With Helm, everything configurable lives in <code>values.yaml</code>. Deploying a new image tag is one flag: <code>--set image.tag=abc123</code>. Helm also tracks releases, so rollbacks are a single command.</p>
+              <p>Raw YAML files are static, so changing the image tag or a resource limit means editing multiple files. With Helm, everything configurable lives in <code>values.yaml</code>. Deploying a new image tag is one flag: <code>--set image.tag=abc123</code>. Helm also tracks releases, so rollbacks are a single command.</p>
             </div>
           `
         },
@@ -976,7 +1010,7 @@ CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
             </div>
             <div class="tech-modal-section">
               <h3>See the Full Breakdown</h3>
-              <p>The Grafana dashboard shows per-node memory over time — useful for spotting which node is under pressure.</p>
+              <p>The Grafana dashboard shows per-node memory over time, which makes it easy to spot which node is under pressure.</p>
               <div class="resume-buttons">
                 <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser&refresh=5s" target="_blank" rel="noopener" class="resume-btn-primary">Open Grafana Dashboard →</a>
               </div>
@@ -1009,7 +1043,7 @@ CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
           body: `
             <div class="tech-modal-section">
               <h3>What You're Looking At</h3>
-              <p>The number of pods currently running in the <code>overengineered</code> namespace — the namespace where this website's services live. Each pod is one running instance of a service.</p>
+              <p>The number of pods currently running in the <code>overengineered</code> namespace, which is where this website's services live. Each pod is one running instance of a service.</p>
             </div>
             <div class="tech-modal-section">
               <h3>What's Running</h3>
@@ -1030,7 +1064,7 @@ CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
           body: `
             <div class="tech-modal-section">
               <h3>What You're Looking At</h3>
-              <p>The number of physical machines (nodes) currently active in the K3s cluster. This website runs on a 3-node bare-metal cluster — 3 mini PCs sitting on a shelf.</p>
+              <p>The number of physical machines (nodes) currently active in the K3s cluster. This website runs on a 3-node bare-metal cluster: 3 mini PCs sitting on a shelf.</p>
             </div>
             <div class="tech-modal-section">
               <h3>The Cluster</h3>

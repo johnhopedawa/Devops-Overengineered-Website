@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Infrastructure — John Hope Dawa</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=11.87" />
+  <link rel="stylesheet" href="styles.css?v=11.97" />
 </head>
 <body class="page-infrastructure">
   <!-- Sticky Header -->
@@ -139,6 +139,14 @@
         <div class="stat-card stat-card--live">
           <div class="label"><strong>Grafana</strong></div>
           <p>Live dashboards at <a href="https://grafana.johnhopedawa.com" target="_blank" rel="noopener">grafana.johnhopedawa.com</a>. Pre-built Kubernetes and node-level dashboards provisioned automatically via kube-prometheus-stack.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label"><strong>Helm</strong></div>
+          <p>Custom chart manages all 13 app resources including deployments, services, ingress, PVC, and ConfigMap. The entire stack deploys in a single <code>helm install</code> command with all config in <code>values.yaml</code>.</p>
+        </div>
+        <div class="stat-card stat-card--live">
+          <div class="label"><strong>Argo CD</strong></div>
+          <p>GitOps controller watching <code>helm/overengineered</code> in GitHub. Manages the <code>overengineered</code> namespace and detects drift between Git and the live cluster. Sync status is visible live on the homepage.</p>
         </div>
       </div>
     </div>

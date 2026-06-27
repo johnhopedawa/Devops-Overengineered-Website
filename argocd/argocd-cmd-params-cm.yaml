@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cmd-params-cm
+  namespace: argocd
+data:
+  # Disables TLS on argocd-server so Traefik can terminate it
+  server.insecure: "true"
