@@ -34,10 +34,25 @@ const resumeData = {
   ],
   experience: [
     {
+      company: "Nyao Software Inc.",
+      role: "DevOps Engineer",
+      location: "Vancouver, BC",
+      duration: "April 2025 – Present",
+      responsibilities: [
+        "Design and operate cloud infrastructure for a SaaS platform across GCP and AWS, ensuring high availability and cost efficiency",
+        "Manage containerized microservices deployments on Kubernetes using Helm and ArgoCD, implementing GitOps workflows for fully automated rollouts",
+        "Build and maintain CI/CD pipelines with GitHub Actions, enabling zero-touch deployments from code commit to production",
+        "Provision and manage cloud infrastructure using Terraform, maintaining consistent and reproducible environments across all stages",
+        "Deploy and operate Prometheus and Grafana monitoring stacks, building dashboards and alerts to provide full observability across services",
+        "Manage Traefik ingress and TLS termination for multi-domain traffic routing across the platform",
+        "Architect and maintain multi-architecture Docker image builds and registry workflows to support cross-platform deployments"
+      ]
+    },
+    {
       company: "Snoogz Software",
       role: "DevOps Engineer",
       location: "Vancouver, BC",
-      duration: "September 2025 – Present",
+      duration: "August 2024 – March 2025",
       responsibilities: [
         "Build and operate production infrastructure for a microservices-based platform supporting multiple international deployments",
         "Serve as an on-call DevOps/SRE resource for high-severity production incidents, coordinating infrastructure and application-level remediation",
@@ -53,10 +68,10 @@ const resumeData = {
       ]
     },
     {
-      company: "Parkbridge Lifestyle Communities Inc.",
+      company: "QuadReal Property Group",
       role: "Assistant Property Manager",
-      location: "Coquitlam, BC",
-      duration: "February 2025 – September 2025",
+      location: "Surrey, BC",
+      duration: "January 2024 – August 2024",
       responsibilities: [
         "Coordinated large-scale operations across four communities (403 units), overseeing workflows, documentation, and issue resolution",
         "Managed digital systems for communication, scheduling, record-keeping, and compliance, ensuring accurate, organized data across teams",
@@ -66,10 +81,10 @@ const resumeData = {
       ]
     },
     {
-      company: "Centurion Properties Associates",
+      company: "Centurion Property Associates Inc.",
       role: "Resident Manager",
-      location: "Coquitlam, BC",
-      duration: "March 2023 – February 2025",
+      location: "Surrey, BC",
+      duration: "January 2023 – December 2023",
       responsibilities: [
         "Oversaw day-to-day building operations for 120 units, coordinating maintenance workflows, system checks, and communication between staff and management",
         "Implemented structured inspection routines and data tracking to improve consistency in reporting and operational standards",
@@ -82,7 +97,7 @@ const resumeData = {
       company: "Hollyburn Properties Limited",
       role: "Resident Manager / Relief Manager / Assistant Manager",
       location: "Vancouver, BC",
-      duration: "April 2021 – February 2023",
+      duration: "April 2021 – January 2023",
       responsibilities: [
         "Managed operations across a large, multi-building portfolio (600+ units), coordinating maintenance teams and contractor workflows under tight timelines",
         "Oversaw project-scale work such as renovations and turnover scheduling, ensuring deadlines, documentation, and quality standards were met",
