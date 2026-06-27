@@ -3,12 +3,7 @@
 
 image:
   repository: johnhopedawa
-<<<<<<< HEAD
-  tag: main-663edf3
-  pullPolicy: Always
-=======
   pullPolicy: IfNotPresent
->>>>>>> 4a0e63c (Fixed per values.yaml tag into per image tag.)
 
 apiGateway:
   tag: latest
