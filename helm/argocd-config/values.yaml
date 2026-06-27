@@ -1,0 +1,24 @@
+# Deploy with:
+#   helm install argocd-config ./helm/argocd-config -n argocd
+#
+# Prerequisites — copy TLS secret into argocd namespace once:
+#   kubectl get secret cloudflare-origin-cert -n overengineered -o yaml \
+#     | sed 's/namespace: overengineered/namespace: argocd/' \
+#     | kubectl apply -f -
+
+anonymous:
+  enabled: "true"
+
+server:
+  insecure: "true"
+
+rbac:
+  defaultPolicy: "role:readonly"
+
+ingress:
+  className: traefik
+  host: argocd.johnhopedawa.com
+  tlsSecret: cloudflare-origin-cert
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"

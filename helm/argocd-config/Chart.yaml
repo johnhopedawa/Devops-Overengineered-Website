@@ -1,0 +1,5 @@
+apiVersion: v2
+name: argocd-config
+description: ArgoCD configuration — anonymous access, insecure mode, and Traefik ingress
+type: application
+version: 0.1.0
