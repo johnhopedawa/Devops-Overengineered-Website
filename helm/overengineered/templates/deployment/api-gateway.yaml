@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: {{ .Values.image.repository }}/overengineered-api-gateway:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/overengineered-api-gateway:{{ .Values.apiGateway.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 3000

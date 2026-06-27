@@ -3,10 +3,15 @@
 
 image:
   repository: johnhopedawa
+<<<<<<< HEAD
   tag: main-663edf3
   pullPolicy: Always
+=======
+  pullPolicy: IfNotPresent
+>>>>>>> 4a0e63c (Fixed per values.yaml tag into per image tag.)
 
 apiGateway:
+  tag: latest
   replicas: 1
   gcpHealthApiUrl: "https://gcp-health-api-jpawjztt4a-uw.a.run.app"
   resources:
@@ -18,6 +23,7 @@ apiGateway:
       memory: "128Mi"
 
 frontend:
+  tag: latest
   replicas: 1
   resources:
     requests:
@@ -28,6 +34,7 @@ frontend:
       memory: "128Mi"
 
 metricsApi:
+  tag: latest
   replicas: 1
   prometheusUrl: "http://prometheus-operated.monitoring.svc.cluster.local:9090"
   resources:
@@ -39,6 +46,7 @@ metricsApi:
       memory: "128Mi"
 
 resumeApi:
+  tag: latest
   replicas: 1
   config:
     mongoUrl: "mongodb://mongodb-service:27017"

@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: resume-api
-          image: {{ .Values.image.repository }}/overengineered-resume-api:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/overengineered-resume-api:{{ .Values.resumeApi.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 3001

@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: metrics-api
-          image: {{ .Values.image.repository }}/overengineered-metrics-api:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/overengineered-metrics-api:{{ .Values.metricsApi.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 3002
