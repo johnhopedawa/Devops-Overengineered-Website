@@ -1166,6 +1166,18 @@ body{
 .tech-item[data-tech="nodejs"]{animation:shake-loop-kubernetes 7.4s ease-in-out infinite}
 .tech-item[data-tech="mongodb"]{animation:shake-loop-linux 7.4s ease-in-out infinite}
 
+/* Loading dot animation */
+@keyframes loading-bob{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+.loading-dot{
+  display:inline-block;
+  animation:loading-bob 0.8s ease-in-out infinite;
+}
+.loading-dot:nth-child(2){animation-delay:0.15s}
+.loading-dot:nth-child(3){animation-delay:0.3s}
+
 /* Live badge for stat cards */
 .stat-card--live{
   border-color:#00d084;

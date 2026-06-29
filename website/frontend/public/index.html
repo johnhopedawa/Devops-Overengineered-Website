@@ -113,7 +113,6 @@
         <div class="info-box">
           <h2>This Site is Over-Engineered On Purpose </h2>
           <p>A working DevOps website: orchestrated on Kubernetes, containerized services, automated delivery pipelines, full‑stack monitoring.</p>
-          <p>Over‑engineered by design. ✅</p>
        </div>
       </div>
 
@@ -237,24 +236,24 @@
       </div>
       <div class="stats">
         <div class="stat-card" data-stat="memory">
-          <div class="number">N/A</div>
+          <div class="number"><span class="loading-dot">.</span><span class="loading-dot">.</span><span class="loading-dot">.</span></div>
           <div class="label">Memory Usage</div>
         </div>
         <div class="stat-card" data-stat="cpu">
-          <div class="number">N/A</div>
+          <div class="number"><span class="loading-dot">.</span><span class="loading-dot">.</span><span class="loading-dot">.</span></div>
           <div class="label">CPU Usage</div>
         </div>
         <div class="stat-card" data-stat="pods">
-          <div class="number">N/A</div>
+          <div class="number"><span class="loading-dot">.</span><span class="loading-dot">.</span><span class="loading-dot">.</span></div>
           <div class="label">Pods Running</div>
         </div>
         <div class="stat-card" data-stat="nodes">
-          <div class="number">N/A</div>
+          <div class="number"><span class="loading-dot">.</span><span class="loading-dot">.</span><span class="loading-dot">.</span></div>
           <div class="label">Nodes Online</div>
         </div>
       </div>
       <div class="tech-hint-wrapper">
-        <span class="stack-hint">Powered by Prometheus · <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser" target="_blank" rel="noopener" style="color:inherit;">grafana.johnhopedawa.com</a></span>
+        <span class="stack-hint">Powered by Prometheus · updates every 5s · <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser" target="_blank" rel="noopener" style="color:inherit;">grafana.johnhopedawa.com</a></span>
       </div>
     </div>
 
@@ -465,7 +464,7 @@
       } catch(e){ /* Prometheus unavailable, keep N/A */ }
     }
     fetchMetrics();
-    setInterval(fetchMetrics, 30000);
+    setInterval(fetchMetrics, 5000);
 
 
     // Tech content generator
