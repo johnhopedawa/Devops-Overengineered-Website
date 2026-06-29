@@ -4,7 +4,6 @@
 image:
   repository: johnhopedawa
   pullPolicy: Always
-
 apiGateway:
   tag: latest
   replicas: 1
@@ -17,7 +16,7 @@ apiGateway:
       cpu: "100m"
       memory: "128Mi"
 frontend:
-  tag: main-42b43c4
+  tag: main-63f846a
   replicas: 1
   resources:
     requests:
