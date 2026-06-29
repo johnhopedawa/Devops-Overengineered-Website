@@ -3,7 +3,8 @@
 
 image:
   repository: johnhopedawa
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
+
 apiGateway:
   tag: latest
   replicas: 1
