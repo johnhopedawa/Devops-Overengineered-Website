@@ -10,14 +10,16 @@ const resumeData = {
   email: process.env.USER_EMAIL || "johnhope.dawa@gmail.com",
   phone: "778-751-3049",
   location: process.env.USER_LOCATION || "Coquitlam, BC",
-  summary: "DevOps Engineer with a strong background in operational coordination, process improvement, and systems management. I focus on building production infrastructure, automating deployment workflows, and maintaining reliable environments for microservices-based platforms. I work with Docker, Kubernetes, CI/CD, Terraform, and cloud tooling. Outside of work, I'm building a fully containerized website in my spare time to see how far I can push modern infrastructure patterns.",
+  summary: "DevOps Engineer with a background in operational coordination, process improvement, and systems management, now focused on building and maintaining production infrastructure for SaaS and custom business software platforms. Experienced with Docker, Kubernetes, CI/CD, Terraform, observability, and cloud environments across GCP and AWS. Strong ability to automate deployment workflows, improve reliability, troubleshoot infrastructure issues, and communicate technical concepts clearly across engineering and leadership teams.",
   skills: [
     "Docker",
     "Kubernetes",
+    "Helm",
+    "ArgoCD",
     "Terraform",
     "GitHub Actions",
     "Jenkins",
-    "NGINX",
+    "Traefik",
     "Python",
     "Bash",
     "Node.js",
@@ -27,6 +29,7 @@ const resumeData = {
     "Grafana",
     "MongoDB",
     "GCP",
+    "AWS",
     "Yardi Voyager",
     "Rent Manager",
     "RentCafe",
@@ -107,7 +110,7 @@ const resumeData = {
       ]
     }
   ],
-  interests: ["Rock Climbing", "Outdoor Activities", "Running", "Memes"]
+  interests: ["Rock Climbing", "Outdoor Activities", "Running"]
 };
 
 async function seedDatabase() {

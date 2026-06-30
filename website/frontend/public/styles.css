@@ -207,6 +207,7 @@ body{
   padding:4px 10px;
   border:1px solid var(--border);
   border-radius:999px;
+  text-align:center;
 }
 .hero-stack-grid{
   display:flex;
