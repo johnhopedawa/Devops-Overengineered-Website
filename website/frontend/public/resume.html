@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>John Hope Dawa - Resume</title>
-    <link rel="stylesheet" href="styles.css?v=11.98">
+    <link rel="stylesheet" href="styles.css?v=11.99">
     <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
 </head>
 <body>
-    <div style="max-width: 800px; margin: 0 auto; padding: 20px 20px 0;">
-        <a href="index.html" class="back-link">← Back to Home</a>
+    <div class="resume-page-header">
+        <a href="index.html" class="back-link">&larr; Back to Home</a>
     </div>
     <div id="resume" class="resume-container">
         <p>Loading...</p>
     </div>
 
     <script>
-        // Fetch resume data from API
         fetch('/api/resume')
             .then(response => response.json())
             .then(data => {
@@ -27,27 +26,57 @@
                 document.getElementById('resume').innerHTML = '<p>Error loading resume data</p>';
             });
 
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function renderDownload(download) {
+            if (!download || !download.pdfUrl || !download.filename) {
+                return '';
+            }
+
+            return `
+                <div class="resume-actions" aria-label="Resume downloads">
+                    <a
+                        href="${escapeHtml(download.pdfUrl)}"
+                        class="btn btn-primary resume-download-link"
+                        download="${escapeHtml(download.filename)}"
+                    >Download PDF</a>
+                </div>
+            `;
+        }
+
         function displayResume(data) {
             const resumeDiv = document.getElementById('resume');
 
             let html = `
-                <h1>${data.name}</h1>
-                <p><strong>${data.title}</strong> | ${data.location}</p>
-                <p>${data.summary}</p>
+                <div class="resume-heading">
+                    <div>
+                        <h1>${escapeHtml(data.name)}</h1>
+                        <p><strong>${escapeHtml(data.title)}</strong> | ${escapeHtml(data.location)}</p>
+                    </div>
+                    ${renderDownload(data.download)}
+                </div>
+                <p>${escapeHtml(data.summary)}</p>
 
                 <h2>Skills</h2>
-                <p>${data.skills.join(', ')}</p>
+                <p>${(data.skills || []).map(escapeHtml).join(', ')}</p>
 
                 <h2>Experience</h2>
             `;
 
-            data.experience.forEach(job => {
+            (data.experience || []).forEach(job => {
                 html += `
                     <div class="job">
-                        <h3>${job.role} - ${job.company}</h3>
-                        <p class="duration">${job.duration} | ${job.location}</p>
+                        <h3>${escapeHtml(job.role)} - ${escapeHtml(job.company)}</h3>
+                        <p class="duration">${escapeHtml(job.duration)} | ${escapeHtml(job.location)}</p>
                         <ul>
-                            ${job.responsibilities.map(resp => `<li>${resp}</li>`).join('')}
+                            ${(job.responsibilities || []).map(resp => `<li>${escapeHtml(resp)}</li>`).join('')}
                         </ul>
                     </div>
                 `;
@@ -55,7 +84,7 @@
 
             html += `
                 <h2>Interests</h2>
-                <p>${data.interests.join(', ')}</p>
+                <p>${(data.interests || []).map(escapeHtml).join(', ')}</p>
             `;
 
             resumeDiv.innerHTML = html;
