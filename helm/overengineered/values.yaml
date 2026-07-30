@@ -5,7 +5,7 @@ image:
   repository: johnhopedawa
   pullPolicy: Always
 apiGateway:
-  tag: latest
+  tag: main-648b9fd
   replicas: 1
   gcpHealthApiUrl: "https://gcp-health-api-jpawjztt4a-uw.a.run.app"
   resources:
@@ -16,7 +16,7 @@ apiGateway:
       cpu: "100m"
       memory: "128Mi"
 frontend:
-  tag: main-399783b
+  tag: main-648b9fd
   replicas: 1
   resources:
     requests:
@@ -37,7 +37,7 @@ metricsApi:
       cpu: "100m"
       memory: "128Mi"
 resumeApi:
-  tag: main-399783b
+  tag: main-648b9fd
   replicas: 1
   config:
     mongoUrl: "mongodb://mongodb-service:27017"
