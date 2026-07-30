@@ -67,41 +67,6 @@ function uniqueValues(values) {
   return [...new Set(values.filter(Boolean))];
 }
 
-function compactExperienceForPdf(experience = []) {
-  const compacted = [];
-
-  experience.forEach((job) => {
-    const previous = compacted[compacted.length - 1];
-    if (previous && previous.company === job.company) {
-      previous.roles.push({ role: job.role, duration: job.duration });
-      previous.role = uniqueValues(previous.roles.map((item) => item.role)).join(' / ');
-      previous.duration = `${job.duration.split(' - ')[0]} - ${previous.duration.split(' - ').pop()}`;
-      previous.responsibilities = uniqueValues([
-        ...previous.responsibilities,
-        ...(job.responsibilities || [])
-      ]);
-      return;
-    }
-
-    compacted.push({
-      ...job,
-      roles: [{ role: job.role, duration: job.duration }],
-      responsibilities: [...(job.responsibilities || [])]
-    });
-  });
-
-  return compacted;
-}
-
-function shortenBullet(text, maxLength = 132) {
-  const normalized = String(text ?? '').replace(/\s+/g, ' ').trim();
-  if (normalized.length <= maxLength) return normalized;
-
-  const trimmed = normalized.slice(0, maxLength - 1);
-  const lastSpace = trimmed.lastIndexOf(' ');
-  return `${trimmed.slice(0, lastSpace > 80 ? lastSpace : trimmed.length).replace(/[,.]$/, '')}.`;
-}
-
 function createPdfDocument(pages) {
   const objects = [];
 
@@ -146,10 +111,105 @@ function createPdfDocument(pages) {
   return Buffer.from(chunks.join(''), 'utf8');
 }
 
+function findExperience(experience, company, role) {
+  return (experience || []).find((job) => (
+    job.company === company && (!role || job.role === role)
+  ));
+}
+
+function getPdfExperience(resumeData) {
+  const experience = resumeData.experience || [];
+  const nyao = findExperience(experience, 'Nyao Software Inc.');
+  const quadreal = findExperience(experience, 'QuadReal Property Group');
+  const snoogz = findExperience(experience, 'Snoogz Software');
+  const centurion = findExperience(experience, 'Centurion Property Associates Inc.');
+  const hollyburnRoles = experience.filter((job) => job.company === 'Hollyburn Properties Limited');
+
+  return [
+    {
+      role: nyao?.role || 'DevOps Engineer',
+      company: nyao?.company || 'Nyao Software Inc.',
+      duration: nyao?.duration || 'Apr 2025 - Present',
+      bullets: [
+        'Design and operate cloud infrastructure across GCP and AWS, supporting containerized services with reliable delivery workflows.',
+        'Manage Kubernetes deployments using Helm and ArgoCD, implementing GitOps patterns for consistent application rollouts.',
+        'Build CI/CD pipelines with GitHub Actions and provision cloud resources with Terraform for reproducible environments.'
+      ]
+    },
+    {
+      role: quadreal?.role || 'Assistant Property Manager',
+      company: quadreal?.company || 'QuadReal Property Group',
+      duration: quadreal?.duration || 'Feb 2025 - Present',
+      bullets: [
+        'Oversee operations and tenant relations for four manufactured-home communities totaling 403 households across BC.',
+        'Administer leasing, resident communications, rent roll posting, A/R and A/P reconciliation, and compliant annual rent-increase notices.',
+        'Coordinate maintenance, contractor scheduling, site inspections, resident programs, and platform adoption across multiple stakeholders.',
+        'Maintain organized records, lease documentation, resale assignments, tenant screening, and RTB-ready compliance files.'
+      ]
+    },
+    {
+      role: snoogz?.role || 'DevOps Engineer',
+      company: snoogz?.company || 'Snoogz Software',
+      duration: snoogz?.duration || 'Aug 2024 - Mar 2025',
+      bullets: [
+        'Built and operated production infrastructure for a microservices platform supporting multiple international deployments.',
+        'Containerized services with Docker, maintained Kubernetes environments, and supported safe rollouts, reliability, and scalability.',
+        'Created Grafana dashboards, Prometheus metrics, distributed tracing, and CI/CD pipelines with GitHub Actions and Jenkins.',
+        'Used Terraform and runbook-driven workflows to reduce operational overhead and improve incident response.'
+      ]
+    },
+    {
+      role: centurion?.role || 'Resident Manager',
+      company: centurion?.company || 'Centurion Property Associates Inc.',
+      duration: centurion?.duration || 'Mar 2023 - Feb 2025',
+      bullets: [
+        'Managed day-to-day operations for a 120-unit residential building, including tenant relations, maintenance, vendors, and upkeep.',
+        'Collected rent, followed up on arrears, issued legal notices, and worked with accounting to maintain accurate financial records.',
+        'Implemented inspection routines, preventative maintenance, suite turnover coordination, and structured work-order follow-up.',
+        'Supervised on-site and mobile staff while maintaining organized lease, correspondence, and RTB documentation.'
+      ]
+    },
+    {
+      role: 'Resident Manager, Relief Manager, Assistant Manager',
+      company: 'Hollyburn Properties Limited',
+      duration: hollyburnRoles.length
+        ? `${hollyburnRoles[hollyburnRoles.length - 1].duration.split(' - ')[0]} - ${hollyburnRoles[0].duration.split(' - ').pop()}`
+        : 'Apr 2021 - Feb 2023',
+      bullets: [
+        'Managed operations across high-occupancy residential buildings, supporting maintenance teams, tenant service, and contractor workflows.',
+        'Led suite turnovers, move-in and move-out coordination, inspections, cleaning, key exchanges, and preparation for new residents.',
+        'Coordinated renovation and repair work including painting, flooring, plumbing, drywall, locks, appliances, and seasonal services.',
+        'Supported leasing, tenant records, applications, legal notices, rent tracking, handover reports, and administrative documentation.'
+      ]
+    }
+  ];
+}
+
+function getPdfCompetencies() {
+  return [
+    ['DevOps', 'Kubernetes, Docker, Helm, ArgoCD, Terraform, GitHub Actions, Jenkins, Linux, Bash'],
+    ['Cloud & Observability', 'GCP, AWS, Prometheus, Grafana, Traefik, CI/CD, infrastructure automation'],
+    ['Property Administration', 'Full-cycle leasing, tenant screening, lease administration, RTA/MHPTA compliance'],
+    ['Operations Coordination', 'Workflow organization, vendor follow-up, maintenance coordination, issue resolution, process improvement'],
+    ['Financial Administration', 'Rent collection, rent roll posting, A/R and A/P reconciliation, budget and arrears follow-up'],
+    ['Technology', 'Yardi Voyager, Rent Manager, RentCafe, Microsoft Office 365, MongoDB, Node.js'],
+    ['Communication', 'Tenant relations, stakeholder coordination, documentation, conflict resolution, professional correspondence']
+  ];
+}
+
+function getPdfAchievements() {
+  return [
+    'Multi-property operations: supported 403-household and 600+ unit residential portfolios while maintaining continuity across stakeholders.',
+    'Compliance focus: maintained structured documentation for RTA, MHPTA, lease files, notices, audits, and RTB hearing readiness.',
+    'Operational efficiency: improved maintenance coordination, inspections, digital records, resident communications, and task follow-up.',
+    'Infrastructure delivery: built deployment, monitoring, and automation workflows across Kubernetes, cloud, and microservices environments.'
+  ];
+}
+
 function buildResumePdf(resumeData) {
   const pageWidth = 612;
   const pageHeight = 792;
-  const margin = 38;
+  const margin = 44;
   const contentWidth = pageWidth - margin * 2;
   const pages = [[]];
   let page = pages[0];
@@ -176,15 +236,20 @@ function buildResumePdf(resumeData) {
     page.push(`${color} RG ${width} w ${x1.toFixed(1)} ${y1.toFixed(1)} m ${x2.toFixed(1)} ${y2.toFixed(1)} l S`);
   }
 
-  function section(title) {
-    ensureSpace(28);
-    y -= 10;
-    text(title.toUpperCase(), margin, 9, 'F2', { fill: '0.02 0.25 0.22' });
-    line(margin, y - 4, pageWidth - margin, y - 4);
-    y -= 16;
+  function centerText(value, textY, size, font = 'F1', options = {}) {
+    const x = (pageWidth - estimateTextWidth(value, size)) / 2;
+    textAt(value, x, textY, size, font, options);
   }
 
-  function paragraph(value, size = 8.5, lineHeight = 10.5) {
+  function section(title, topGap = 12) {
+    ensureSpace(28);
+    y -= topGap;
+    text(title.toUpperCase(), margin, 9.5, 'F2', { fill: '0 0 0' });
+    line(margin, y - 4, pageWidth - margin, y - 4, '0.48 0.48 0.48', 0.5);
+    y -= 14;
+  }
+
+  function paragraph(value, size = 8.4, lineHeight = 10.2) {
     const lines = wrapText(value, contentWidth, size);
     ensureSpace(lines.length * lineHeight + 4);
     lines.forEach((lineText) => {
@@ -193,62 +258,52 @@ function buildResumePdf(resumeData) {
     });
   }
 
-  function bullet(value, indent = 10) {
-    const fontSize = 8;
-    const lineHeight = 9.5;
+  function bullet(value, indent = 11, fontSize = 8.2, lineHeight = 9.7) {
     const bulletX = margin + indent;
-    const textX = bulletX + 10;
-    const lines = wrapText(shortenBullet(value), contentWidth - indent - 12, fontSize);
-    ensureSpace(lines.length * lineHeight + 2);
+    const textX = bulletX + 11;
+    const lines = wrapText(value, contentWidth - indent - 12, fontSize);
+    ensureSpace(lines.length * lineHeight + 3);
     textAt('-', bulletX, y, fontSize, 'F2');
     lines.forEach((lineText, index) => {
       textAt(lineText, textX, y - index * lineHeight, fontSize);
     });
-    y -= lines.length * lineHeight + 1.5;
+    y -= lines.length * lineHeight + 2;
   }
 
-  function rightText(value, size = 8) {
-    const x = pageWidth - margin - estimateTextWidth(value, size);
-    textAt(value, x, y, size, 'F1');
-  }
-
-  text(resumeData.name || 'John Hope Dawa', margin, 18, 'F2', { fill: '0.02 0.08 0.16' });
+  const contact = uniqueValues([resumeData.phone, resumeData.email]).join(' | ');
+  const subtitle = `${resumeData.title || 'DevOps Engineer'} | BC, Canada`;
+  centerText(resumeData.name || 'John Hope Dawa', y, 18, 'F2');
   y -= 14;
-  text(resumeData.title || 'DevOps Engineer', margin, 10, 'F2', { fill: '0.02 0.25 0.22' });
+  centerText(subtitle, y, 10, 'F1');
   y -= 11;
-  paragraph(uniqueValues([resumeData.location, resumeData.email, resumeData.phone]).join(' | '), 8, 9.5);
+  centerText(contact, y, 8.8, 'F1');
+  y -= 9;
 
-  section('Profile');
-  paragraph('DevOps Engineer focused on Kubernetes, CI/CD, Terraform, observability, and cloud infrastructure, with a strong operations background and clear cross-functional communication.', 8.5, 10);
+  section('Professional Summary', 14);
+  paragraph('DevOps engineer and operations professional with experience supporting cloud infrastructure, production deployments, residential portfolios, vendor coordination, documentation, scheduling, tenant communications, and digital systems management. Skilled at organizing workflows, maintaining accurate records, resolving issues, and keeping day-to-day operations running smoothly across technical and business stakeholders.', 8.4, 10.3);
 
-  section('Skills');
-  paragraph((resumeData.skills || []).slice(0, 18).join(' | '), 8.2, 9.8);
-
-  section('Experience');
-  const bulletLimits = [3, 2, 3, 2, 2];
-  compactExperienceForPdf(resumeData.experience || []).forEach((job, index) => {
-    const responsibilities = (job.responsibilities || []).slice(0, bulletLimits[index] || 1);
-    const roleLine = `${job.role} - ${job.company}`;
-    const rolesLine = job.roles && job.roles.length > 1
-      ? job.roles.map((item) => `${item.role} (${item.duration})`).join('; ')
-      : '';
-    const metaLines = wrapText(`${job.location || ''}${rolesLine ? ` | ${rolesLine}` : ''}`, contentWidth, 7.8);
-    const needed = 22 + metaLines.length * 9.5 + responsibilities.length * 18;
-
-    ensureSpace(needed);
-    text(roleLine, margin, 9, 'F2', { fill: '0.02 0.08 0.16' });
-    rightText(job.duration, 8);
-    y -= 10;
-    metaLines.forEach((metaLine) => {
-      text(metaLine, margin, 7.8, 'F1', { fill: '0.28 0.28 0.28' });
-      y -= 9.5;
-    });
-    responsibilities.forEach((item) => bullet(item));
+  section('Professional Experience', 12);
+  getPdfExperience(resumeData).forEach((job) => {
+    const jobLine = `${job.role} - ${job.company} - ${job.duration}`;
+    ensureSpace(22 + job.bullets.length * 18);
+    text(jobLine, margin, 8.9, 'F2');
+    y -= 11;
+    job.bullets.forEach((item) => bullet(item));
     y -= 3;
   });
 
-  section('Interests');
-  paragraph((resumeData.interests || []).join(' | '), 8.2, 9.5);
+  section('Core Competencies', 12);
+  getPdfCompetencies().forEach(([label, value]) => {
+    const lines = wrapText(`${label}: ${value}`, contentWidth, 8.1);
+    ensureSpace(lines.length * 9.4 + 2);
+    lines.forEach((lineText, index) => {
+      textAt(lineText, index === 0 ? margin : margin + 16, y, 8.1, 'F1');
+      y -= 9.4;
+    });
+  });
+
+  section('Key Achievements', 12);
+  getPdfAchievements().forEach((item) => bullet(item, 11, 8.1, 9.6));
 
   return createPdfDocument(pages.slice(0, 2));
 }
