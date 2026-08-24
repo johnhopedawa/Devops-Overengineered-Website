@@ -249,54 +249,10 @@ jobs:
           cache-from: type=registry,ref=${{ env.DOCKER_USERNAME }}/overengineered-gcp-health-api:buildcache
           cache-to: type=registry,ref=${{ env.DOCKER_USERNAME }}/overengineered-gcp-health-api:buildcache,mode=max
 
-  update-helm-tags:
-    name: Update Helm Image Tags
-    runs-on: ubuntu-latest
-    needs:
-      - build-and-push-frontend
-      - build-and-push-api-gateway
-      - build-and-push-resume-api
-      - build-and-push-metrics-api
-    if: |
-      always() && (
-        needs.build-and-push-frontend.result == 'success' ||
-        needs.build-and-push-api-gateway.result == 'success' ||
-        needs.build-and-push-resume-api.result == 'success' ||
-        needs.build-and-push-metrics-api.result == 'success'
-      )
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install yq
-        run: |
-          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64
-          sudo chmod +x /usr/local/bin/yq
-
-      - name: Update image tags
-        run: |
-          NEW_TAG="main-${GITHUB_SHA::7}"
-          if [ "${{ needs.build-and-push-frontend.result }}" == "success" ]; then
-            yq -i ".frontend.tag = \"${NEW_TAG}\"" helm/overengineered/values.yaml
-          fi
-          if [ "${{ needs.build-and-push-api-gateway.result }}" == "success" ]; then
-            yq -i ".apiGateway.tag = \"${NEW_TAG}\"" helm/overengineered/values.yaml
-          fi
-          if [ "${{ needs.build-and-push-resume-api.result }}" == "success" ]; then
-            yq -i ".resumeApi.tag = \"${NEW_TAG}\"" helm/overengineered/values.yaml
-          fi
-          if [ "${{ needs.build-and-push-metrics-api.result }}" == "success" ]; then
-            yq -i ".metricsApi.tag = \"${NEW_TAG}\"" helm/overengineered/values.yaml
-          fi
-
-      - name: Commit and push
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add helm/overengineered/values.yaml
-          git diff --staged --quiet || git commit -m "ci: update image tags to main-${GITHUB_SHA::7}"
-          git push
+  # Do not commit generated image tag updates back to main from CI.
+  #
+  # The old workflow edited helm/overengineered/values.yaml and pushed a bot
+  # commit after every successful service build. That made local pushes fail
+  # with "fetch first" because origin/main moved immediately after each push.
+  # Keep image-tag changes as normal human commits or handle them through a
+  # dedicated deployment tool such as Argo CD Image Updater.
