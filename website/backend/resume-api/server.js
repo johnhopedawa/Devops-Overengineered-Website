@@ -150,7 +150,8 @@ function getPdfExperience(resumeData) {
       duration: parkbridge?.duration || 'February 2025 - September 2025',
       bullets: [
         'Oversaw operations and tenant relations for four manufactured-home communities totaling 403 households across BC.',
-        'Managed leasing, resident communications, rent roll posting, A/R and A/P reconciliation, annual rent-increase notices, maintenance coordination, and RTA/MHPTA documentation.'
+        'Managed leasing, resident communications, rent roll posting, A/R and A/P reconciliation, annual rent-increase notices, maintenance coordination, and RTA/MHPTA documentation.',
+        'Coordinated with technicians, vendors, residents, and internal teams to prioritize work orders, resolve issues, and keep multi-site operations moving.'
       ]
     },
     {
@@ -158,8 +159,9 @@ function getPdfExperience(resumeData) {
       company: snoogz?.company || 'Snoogz Software',
       duration: snoogz?.duration || 'April 2025 - September 2025',
       bullets: [
-        'Built and operated production infrastructure for a microservices platform with Docker, Kubernetes, Terraform, GitHub Actions, and Jenkins.',
-        'Created Grafana dashboards, Prometheus metrics, distributed tracing, CI/CD workflows, and runbook-driven processes to improve reliability and incident response.'
+        'Built and maintained infrastructure for a microservices-based platform, using Terraform to keep environments consistent and easier to deploy across stages.',
+        'Containerized services with Docker, managed image distribution, and maintained Kubernetes environments with a focus on repeatable deployments and safe rollouts.',
+        'Created Grafana dashboards, Prometheus metrics, alerting, and CI/CD pipelines with GitHub Actions and Jenkins to improve visibility and release reliability.'
       ]
     },
     {
@@ -168,7 +170,8 @@ function getPdfExperience(resumeData) {
       duration: centurion?.duration || 'March 2023 - February 2025',
       bullets: [
         'Managed day-to-day operations for a 120-unit residential building, including tenant relations, maintenance, vendors, inspections, and upkeep.',
-        'Maintained rent collection, arrears follow-up, legal notices, suite turnovers, staff coordination, and organized lease/RTB documentation.'
+        'Maintained rent collection, arrears follow-up, legal notices, suite turnovers, staff coordination, and organized lease/RTB documentation.',
+        'Implemented structured inspection routines and work-order follow-up to improve maintenance consistency and operational visibility.'
       ]
     },
     {
@@ -179,7 +182,8 @@ function getPdfExperience(resumeData) {
         : 'April 2021 - February 2023',
       bullets: [
         'Managed operations across high-occupancy residential buildings, supporting maintenance teams, tenant service, contractor workflows, and renovations.',
-        'Supported leasing, suite turnovers, move-in/out coordination, inspections, rent tracking, handover reports, and administrative documentation.'
+        'Supported leasing, suite turnovers, move-in/out coordination, inspections, rent tracking, handover reports, and administrative documentation.',
+        'Coordinated repair and renovation work including painting, flooring, plumbing, drywall, locks, appliances, cleaning, and seasonal services.'
       ]
     }
   ];
