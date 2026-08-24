@@ -137,8 +137,10 @@ function getPdfExperience(resumeData) {
       company: nyao?.company || 'Nyao Software Inc. [HomeLab]',
       duration: nyao?.duration || 'April 2025 - Present',
       bullets: [
-        'Built and operate a 3-node bare-metal K3s HomeLab running johnhopedawa.com with NGINX, API gateway, resume API, metrics API, MongoDB, Traefik, and persistent storage.',
-        'Use Helm, ArgoCD, GitHub Actions, Docker Buildx, Terraform, Prometheus, Grafana, kube-state-metrics, and Node Exporter for GitOps delivery and observability.',
+        'Built and operate a 3-node bare-metal K3s HomeLab on two MQ910 mini PCs and one Raspberry Pi, hosting johnhopedawa.com with NGINX, API gateway, resume API, metrics API, MongoDB, Traefik, and persistent storage.',
+        'Use Helm and ArgoCD for GitOps delivery, with Kubernetes deployments, services, ingress, config, PVCs, and image tags managed from Git.',
+        'Build multi-arch Docker images with GitHub Actions and Docker Buildx; use Terraform for GCP Cloud Run services and hybrid-cloud infrastructure practice.',
+        'Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter for live visibility into node CPU, memory, pod health, service status, and cluster behavior.',
         'Manage one daycare website for a client, including the public site, internal admin tool, content updates, admin workflows, data entry, usability, and deployment concerns.'
       ]
     },
@@ -148,7 +150,7 @@ function getPdfExperience(resumeData) {
       duration: parkbridge?.duration || 'February 2025 - September 2025',
       bullets: [
         'Oversaw operations and tenant relations for four manufactured-home communities totaling 403 households across BC.',
-        'Managed leasing, resident communications, rent roll posting, A/R and A/P reconciliation, maintenance coordination, and RTA/MHPTA documentation.'
+        'Managed leasing, resident communications, rent roll posting, A/R and A/P reconciliation, annual rent-increase notices, maintenance coordination, and RTA/MHPTA documentation.'
       ]
     },
     {
@@ -157,7 +159,7 @@ function getPdfExperience(resumeData) {
       duration: snoogz?.duration || 'April 2025 - September 2025',
       bullets: [
         'Built and operated production infrastructure for a microservices platform with Docker, Kubernetes, Terraform, GitHub Actions, and Jenkins.',
-        'Created Grafana dashboards, Prometheus metrics, distributed tracing, and runbook-driven workflows to improve reliability and incident response.'
+        'Created Grafana dashboards, Prometheus metrics, distributed tracing, CI/CD workflows, and runbook-driven processes to improve reliability and incident response.'
       ]
     },
     {
@@ -195,17 +197,17 @@ function getPdfCompetencies() {
 function buildResumePdf(resumeData) {
   const pageWidth = 612;
   const pageHeight = 792;
-  const margin = 36;
+  const margin = 44;
   const contentWidth = pageWidth - margin * 2;
   const pages = [[]];
   let page = pages[0];
-  let y = pageHeight - 32;
+  let y = pageHeight - 38;
 
   function ensureSpace(height) {
-    if (y - height >= 28) return;
+    if (y - height >= 36) return;
     page = [];
     pages.push(page);
-    y = pageHeight - 32;
+    y = pageHeight - 38;
   }
 
   function text(value, x, size, font = 'F1', options = {}) {
@@ -227,15 +229,15 @@ function buildResumePdf(resumeData) {
     textAt(value, x, textY, size, font, options);
   }
 
-  function section(title, topGap = 8) {
-    ensureSpace(22);
+  function section(title, topGap = 12) {
+    ensureSpace(28);
     y -= topGap;
-    text(title.toUpperCase(), margin, 8.7, 'F2', { fill: '0 0 0' });
+    text(title.toUpperCase(), margin, 9.5, 'F2', { fill: '0 0 0' });
     line(margin, y - 4, pageWidth - margin, y - 4, '0.48 0.48 0.48', 0.5);
-    y -= 11;
+    y -= 14;
   }
 
-  function paragraph(value, size = 7.6, lineHeight = 8.8) {
+  function paragraph(value, size = 8.4, lineHeight = 10.2) {
     const lines = wrapText(value, contentWidth, size);
     ensureSpace(lines.length * lineHeight + 4);
     lines.forEach((lineText) => {
@@ -244,7 +246,7 @@ function buildResumePdf(resumeData) {
     });
   }
 
-  function bullet(value, indent = 10, fontSize = 7.45, lineHeight = 8.45) {
+  function bullet(value, indent = 11, fontSize = 8.2, lineHeight = 9.7) {
     const bulletX = margin + indent;
     const textX = bulletX + 11;
     const lines = wrapText(value, contentWidth - indent - 12, fontSize);
@@ -258,33 +260,33 @@ function buildResumePdf(resumeData) {
 
   const contact = uniqueValues([resumeData.phone, resumeData.email]).join(' | ');
   const subtitle = `${resumeData.title || 'DevOps Engineer'} | BC, Canada`;
-  centerText(resumeData.name || 'John Hope Dawa', y, 16, 'F2');
-  y -= 12;
-  centerText(subtitle, y, 8.8, 'F1');
-  y -= 9.5;
-  centerText(contact, y, 8.0, 'F1');
-  y -= 6;
+  centerText(resumeData.name || 'John Hope Dawa', y, 18, 'F2');
+  y -= 14;
+  centerText(subtitle, y, 10, 'F1');
+  y -= 11;
+  centerText(contact, y, 8.8, 'F1');
+  y -= 9;
 
-  section('Professional Summary', 9);
-  paragraph(resumeData.summary || 'DevOps engineer and operations professional with experience supporting cloud infrastructure, production-style HomeLab deployments, residential portfolios, vendor coordination, documentation, scheduling, tenant communications, and digital systems management.', 7.55, 8.7);
+  section('Professional Summary', 14);
+  paragraph(resumeData.summary || 'DevOps engineer and operations professional with experience supporting cloud infrastructure, production-style HomeLab deployments, residential portfolios, vendor coordination, documentation, scheduling, tenant communications, and digital systems management.', 8.4, 10.3);
 
-  section('Professional Experience', 8);
+  section('Professional Experience', 12);
   getPdfExperience(resumeData).forEach((job) => {
     const jobLine = `${job.role} - ${job.company} - ${job.duration}`;
-    ensureSpace(18 + job.bullets.length * 14);
-    text(jobLine, margin, 7.85, 'F2');
-    y -= 9.1;
+    ensureSpace(22 + job.bullets.length * 18);
+    text(jobLine, margin, 8.9, 'F2');
+    y -= 11;
     job.bullets.forEach((item) => bullet(item));
-    y -= 1.5;
+    y -= 3;
   });
 
-  section('Core Competencies', 8);
+  section('Core Competencies', 12);
   getPdfCompetencies().forEach(([label, value]) => {
-    const lines = wrapText(`${label}: ${value}`, contentWidth, 7.45);
-    ensureSpace(lines.length * 8.35 + 1);
+    const lines = wrapText(`${label}: ${value}`, contentWidth, 8.1);
+    ensureSpace(lines.length * 9.4 + 2);
     lines.forEach((lineText, index) => {
-      textAt(lineText, index === 0 ? margin : margin + 14, y, 7.45, 'F1');
-      y -= 8.35;
+      textAt(lineText, index === 0 ? margin : margin + 16, y, 8.1, 'F1');
+      y -= 9.4;
     });
   });
 
