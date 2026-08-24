@@ -67,6 +67,8 @@
                 <h2>Skills</h2>
                 <p>${(data.skills || []).map(escapeHtml).join(', ')}</p>
 
+                ${renderProjects(data.projects)}
+
                 <h2>Experience</h2>
             `;
 
@@ -88,6 +90,27 @@
             `;
 
             resumeDiv.innerHTML = html;
+        }
+
+        function renderProjects(projects) {
+            if (!Array.isArray(projects) || projects.length === 0) {
+                return '';
+            }
+
+            let html = '<h2>Projects</h2>';
+            projects.forEach(project => {
+                html += `
+                    <div class="job">
+                        <h3>${escapeHtml(project.name)}</h3>
+                        <p class="duration">${escapeHtml(project.stack)}</p>
+                        <ul>
+                            ${(project.details || []).map(detail => `<li>${escapeHtml(detail)}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            });
+
+            return html;
         }
     </script>
 </body>

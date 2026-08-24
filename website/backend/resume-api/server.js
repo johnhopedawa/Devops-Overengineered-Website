@@ -133,13 +133,17 @@ function getPdfExperience(resumeData) {
 
   return [
     {
-      role: nyao?.role || 'Founder & Home Lab DevOps Engineer',
-      company: nyao?.company || 'Nyao Software Inc. / Personal Home Lab',
+      role: nyao?.role || 'Founder & HomeLab DevOps Engineer',
+      company: nyao?.company || 'Nyao Software Inc. [HomeLab]',
       duration: nyao?.duration || 'Apr 2025 - Present',
       bullets: [
-        'Build and operate a personal DevOps home lab under Nyao Software Inc. to practice production-style infrastructure, automation, monitoring, and deployment workflows.',
-        'Run containerized services on Kubernetes using Helm, ArgoCD, Traefik, and GitOps patterns for reproducible lab deployments.',
-        'Use Terraform, GitHub Actions, Prometheus, and Grafana to automate infrastructure, validate changes, and observe service health.'
+        'Built and operate a 3-node bare-metal K3s HomeLab using two MQ910 mini PCs and one Raspberry Pi.',
+        'Run johnhopedawa.com as a Kubernetes platform with NGINX frontend, API gateway, resume API, metrics API, MongoDB, Traefik ingress, and persistent storage.',
+        'Manage deployments with Helm and ArgoCD, keeping Kubernetes resources, config, ingress, and image tags versioned through GitOps.',
+        'Build multi-arch Docker images for amd64 and arm64 with GitHub Actions, Docker Buildx, and Docker Hub.',
+        'Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter for node, pod, CPU, memory, and service-health visibility.',
+        'Provision GCP Cloud Run services with Terraform and connect serverless health-check workloads to the bare-metal lab.',
+        'Manage one daycare website for a client, covering the public site, internal admin tool, content updates, admin workflows, data entry, usability, and deployment concerns.'
       ]
     },
     {
@@ -191,10 +195,43 @@ function getPdfExperience(resumeData) {
   ];
 }
 
+function getPdfProjects(resumeData) {
+  return resumeData.projects || [
+    {
+      name: 'johnhopedawa.com HomeLab Platform',
+      stack: 'K3s, Helm, ArgoCD, Traefik, NGINX, Node.js, MongoDB, Prometheus, Grafana',
+      details: [
+        'Runs on a 3-node bare-metal K3s cluster made from two MQ910 mini PCs and one Raspberry Pi.',
+        'Deploys frontend, API gateway, resume API, metrics API, MongoDB, ingress, PVCs, and config through Helm.',
+        'Uses Prometheus and Grafana for live node, pod, memory, CPU, and service-health visibility.'
+      ]
+    },
+    {
+      name: 'Managed Daycare Website and Admin Tool',
+      stack: 'Public website, admin workflows, content updates, deployment support',
+      details: [
+        'Manage one daycare site for a client, including the public-facing website and a private admin-use tool for daycare operations.',
+        'Focused on practical admin workflows, content/data management, and a usable front-facing experience.',
+        'Handled deployment-oriented concerns so the site could be maintained outside local development.'
+      ]
+    },
+    {
+      name: 'Hybrid Cloud Health and Metrics APIs',
+      stack: 'Node.js, GCP Cloud Run, Terraform, Prometheus, GitHub Actions',
+      details: [
+        'Built a Cloud Run health-check API deployed with Terraform and container automation.',
+        'Built a metrics API that queries Prometheus inside the cluster and exposes clean JSON for the website dashboard.',
+        'Practiced CI/CD flows from git push to Docker image publishing, infrastructure updates, and service rollout.'
+      ]
+    }
+  ];
+}
+
 function getPdfCompetencies() {
   return [
-    ['DevOps', 'Kubernetes, Docker, Helm, ArgoCD, Terraform, GitHub Actions, Jenkins, Linux, Bash'],
-    ['Cloud & Observability', 'GCP, AWS, Prometheus, Grafana, Traefik, CI/CD, infrastructure automation'],
+    ['DevOps', 'Kubernetes, K3s, Docker, Docker Buildx, Helm, ArgoCD, Terraform, GitHub Actions, Jenkins, Linux, Bash'],
+    ['Cloud & Observability', 'GCP, GCP Cloud Run, AWS, Prometheus, Grafana, kube-state-metrics, Node Exporter, Traefik, CI/CD'],
+    ['Web & Backend', 'NGINX, Node.js, MongoDB, API gateways, admin tools, static sites, deployment workflows'],
     ['Property Administration', 'Full-cycle leasing, tenant screening, lease administration, RTA/MHPTA compliance'],
     ['Operations Coordination', 'Workflow organization, vendor follow-up, maintenance coordination, issue resolution, process improvement'],
     ['Financial Administration', 'Rent collection, rent roll posting, A/R and A/P reconciliation, budget and arrears follow-up'],
@@ -205,9 +242,10 @@ function getPdfCompetencies() {
 
 function getPdfAchievements() {
   return [
+    'HomeLab platform: built and operate a 3-node bare-metal K3s cluster with GitOps, Helm, monitoring, ingress, and persistent services.',
+    'Client web delivery: manage one daycare public website and admin-use tool with practical operational workflows.',
     'Multi-property operations: supported 403-household and 600+ unit residential portfolios while maintaining continuity across stakeholders.',
     'Compliance focus: maintained structured documentation for RTA, MHPTA, lease files, notices, audits, and RTB hearing readiness.',
-    'Operational efficiency: improved maintenance coordination, inspections, digital records, resident communications, and task follow-up.',
     'Infrastructure delivery: built deployment, monitoring, and automation workflows across Kubernetes, cloud, and microservices environments.'
   ];
 }
@@ -286,7 +324,7 @@ function buildResumePdf(resumeData) {
   y -= 9;
 
   section('Professional Summary', 14);
-  paragraph('DevOps engineer and operations professional with experience supporting cloud infrastructure, production-style home lab deployments, residential portfolios, vendor coordination, documentation, scheduling, tenant communications, and digital systems management. Currently building Nyao Software Inc. as a personal company and home lab for Kubernetes, automation, monitoring, and infrastructure experiments while applying practical operations experience across technical and business workflows.', 8.4, 10.3);
+  paragraph(resumeData.summary || 'DevOps engineer and operations professional with experience supporting cloud infrastructure, production-style HomeLab deployments, residential portfolios, vendor coordination, documentation, scheduling, tenant communications, and digital systems management.', 8.4, 10.3);
 
   section('Professional Experience', 12);
   getPdfExperience(resumeData).forEach((job) => {
@@ -295,6 +333,16 @@ function buildResumePdf(resumeData) {
     text(jobLine, margin, 8.9, 'F2');
     y -= 11;
     job.bullets.forEach((item) => bullet(item));
+    y -= 3;
+  });
+
+  section('Selected Projects', 12);
+  getPdfProjects(resumeData).forEach((project) => {
+    ensureSpace(35 + (project.details || []).length * 15);
+    text(project.name, margin, 8.9, 'F2');
+    y -= 10;
+    paragraph(project.stack, 7.8, 9.1);
+    (project.details || []).forEach((item) => bullet(item, 11, 8.0, 9.4));
     y -= 3;
   });
 
@@ -311,7 +359,7 @@ function buildResumePdf(resumeData) {
   section('Key Achievements', 12);
   getPdfAchievements().forEach((item) => bullet(item, 11, 8.1, 9.6));
 
-  return createPdfDocument(pages.slice(0, 2));
+  return createPdfDocument(pages);
 }
 
 // Health check
