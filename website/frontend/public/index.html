@@ -253,7 +253,7 @@
         </div>
       </div>
       <div class="tech-hint-wrapper">
-        <span class="stack-hint">Powered by Prometheus · updates every 5s · <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser" target="_blank" rel="noopener" style="color:inherit;">grafana.johnhopedawa.com</a></span>
+        <span class="stack-hint">Metrics from Prometheus · updates every 5s · <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser" target="_blank" rel="noopener" style="color:inherit;">grafana.johnhopedawa.com</a></span>
       </div>
     </div>
 
@@ -388,6 +388,7 @@
       techModalTitle.textContent = content.title;
       // Sanitize HTML content to prevent XSS attacks (using default safe config)
       techModalBody.innerHTML = DOMPurify.sanitize(content.body);
+      hydrateMetricDisplays();
       techModal.classList.add('open');
       document.body.classList.add('no-scroll');
       techModal.setAttribute('aria-hidden','false');
@@ -446,10 +447,25 @@
     });
 
     // Live metrics
+    const latestMetrics = {
+      cpu: '...',
+      memory: '...',
+      pods: '...',
+      nodes: '...'
+    };
     function avg(arr){ return arr.reduce((s,n)=>s+parseFloat(n.value),0)/arr.length; }
     function setMetric(stat, value){
-      const el = document.querySelector(`.stat-card[data-stat="${stat}"] .number`);
-      if(el) el.textContent = value;
+      latestMetrics[stat] = value;
+      document.querySelectorAll(`.stat-card[data-stat="${stat}"] .number`).forEach(el => {
+        el.textContent = value;
+      });
+    }
+    function hydrateMetricDisplays(){
+      Object.entries(latestMetrics).forEach(([stat, value]) => {
+        document.querySelectorAll(`.stat-card[data-stat="${stat}"] .number`).forEach(el => {
+          el.textContent = value;
+        });
+      });
     }
     async function fetchMetrics(){
       try{
@@ -529,22 +545,22 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
                 <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,208,132,0.15);border:1px solid #00d084;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:#00d084;letter-spacing:1px;">
                   <span style="width:8px;height:8px;border-radius:50%;background:#00d084;display:inline-block;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
-                  COLLECTING METRICS RIGHT NOW
+                  PROMETHEUS FEEDS GRAFANA
                 </span>
               </div>
               <div class="resume-buttons">
-                <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser" target="_blank" rel="noopener" class="resume-btn-primary">See the Live Dashboard →</a>
+                <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser" target="_blank" rel="noopener" class="resume-btn-primary">View Metrics in Grafana →</a>
               </div>
             </div>
             <div class="tech-modal-section">
               <h3>What It Does</h3>
-              <p>Prometheus is the monitoring backbone of this cluster. Every 15 seconds it collects health data from all 3 nodes and every running service (CPU load, memory usage, pod status, network traffic) and stores it historically so you can see trends over time.</p>
+              <p>Prometheus runs in the background as the metrics engine for this K3s cluster. The Prometheus server scrapes metrics every 15 seconds, while Node Exporter runs on each node and kube-state-metrics exposes Kubernetes object state. Grafana reads that Prometheus data and turns it into the dashboard you can open here.</p>
             </div>
             <div class="tech-modal-section">
               <h3>What It's Watching</h3>
-              <p>• <strong>3 bare-metal nodes</strong> — CPU, memory and disk on each machine</p>
-              <p>• <strong>Every service</strong> — frontend, API gateway, resume API, MongoDB</p>
-              <p>• <strong>Kubernetes itself</strong> — pod restarts, scheduling, cluster health</p>
+              <p>• <strong>Node Exporter daemon</strong> — CPU, memory, disk, and host metrics on each bare-metal node</p>
+              <p>• <strong>kube-state-metrics</strong> — pod status, deployments, replicas, scheduling state, and cluster object health</p>
+              <p>• <strong>Application services</strong> — frontend, API gateway, resume API, metrics API, and MongoDB</p>
               <p>• <strong>15 days</strong> of history kept on disk</p>
             </div>
           `
@@ -556,12 +572,12 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
                 <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,208,132,0.15);border:1px solid #00d084;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:#00d084;letter-spacing:1px;">
                   <span style="width:8px;height:8px;border-radius:50%;background:#00d084;display:inline-block;animation:pulse-dot 1.5s ease-in-out infinite;"></span>
-                  LIVE — open right now, no login needed
+                  LIVE METRICS FROM PROMETHEUS
                 </span>
               </div>
               <div style="display:flex;align-items:center;gap:14px;">
                 <div class="resume-buttons" style="margin-top:0;">
-                  <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser&refresh=5s" target="_blank" rel="noopener" class="resume-btn-primary">Open Live Dashboard →</a>
+                  <a href="https://grafana.johnhopedawa.com/d/ad7s6qj/k3s-cluster-overview?orgId=1&from=now-6h&to=now&timezone=browser&refresh=5s" target="_blank" rel="noopener" class="resume-btn-primary">Open Full Grafana Dashboard →</a>
                 </div>
                 <span style="color:var(--muted);font-size:13px;white-space:nowrap;">Refreshes every 5s</span>
               </div>
@@ -574,11 +590,26 @@ All monitored live → grafana.johnhopedawa.com</pre></div>
               <p>• <strong>RAM per service</strong> — how much memory each service is actually using right now</p>
             </div>
             <div class="tech-modal-section">
-              <h3>Current Memory Usage</h3>
-              <p>• <strong>MongoDB</strong> — 54.6 MB (database)</p>
-              <p>• <strong>API Gateway</strong> — 28.5 MB (request routing)</p>
-              <p>• <strong>Resume API</strong> — 25.2 MB (backend)</p>
-              <p>• <strong>Frontend</strong> — 3.5 MB (NGINX serving static files)</p>
+              <h3>Live Cluster Snapshot</h3>
+              <div class="stats modal-metrics">
+                <div class="stat-card stat-card--live" data-stat="memory">
+                  <div class="number">...</div>
+                  <div class="label">Memory Usage</div>
+                </div>
+                <div class="stat-card stat-card--live" data-stat="cpu">
+                  <div class="number">...</div>
+                  <div class="label">CPU Usage</div>
+                </div>
+                <div class="stat-card stat-card--live" data-stat="pods">
+                  <div class="number">...</div>
+                  <div class="label">Pods Running</div>
+                </div>
+                <div class="stat-card stat-card--live" data-stat="nodes">
+                  <div class="number">...</div>
+                  <div class="label">Nodes Online</div>
+                </div>
+              </div>
+              <p>These are the same values shown on the homepage, pulled through the Metrics API from Prometheus. Grafana provides the deeper dashboard view with per-node and per-pod breakdowns.</p>
             </div>
           `
         },
@@ -696,7 +727,7 @@ Release:   overengineered</pre></div>
               <h3>Live GCP Health API</h3>
               <div class="resume-buttons">
                 <a href="https://gcp-health-api-jpawjztt4a-uw.a.run.app" target="_blank" rel="noopener" class="resume-btn-primary">Visit GCP Health API</a>
-                <a href="/api/gcp-health" target="_blank" class="resume-btn-secondary">API Gateway Proxy</a>
+                <a href="/api/gcp-health/api/health" target="_blank" class="resume-btn-secondary">View Proxy JSON</a>
               </div>
             </div>
             <div class="tech-modal-section">
@@ -764,7 +795,7 @@ Release:   overengineered</pre></div>
               <h3>API Endpoints</h3>
               <p><strong>GET /</strong> - Visual dashboard with deployment information</p>
               <p><strong>GET /api/health</strong> - JSON health check endpoint</p>
-              <div class="tech-modal-code"><pre>curl https://gcp-health-api-jpawjztt4a-uw.a.run.app/api/health</pre></div>
+              <div class="tech-modal-code"><pre>curl https://johnhopedawa.com/api/gcp-health/api/health</pre></div>
               <p><strong>Example Response:</strong></p>
               <div class="tech-modal-code"><pre>{
   "status": "ok",
@@ -1084,7 +1115,7 @@ CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
               <h3>Live API Endpoints</h3>
               <div class="resume-buttons">
                 <a href="https://gcp-health-api-jpawjztt4a-uw.a.run.app" target="_blank" rel="noopener" class="resume-btn-primary">Visit GCP Health API</a>
-                <a href="/api/gcp-health" target="_blank" class="resume-btn-secondary">API Gateway Proxy</a>
+                <a href="/api/gcp-health/api/health" target="_blank" class="resume-btn-secondary">View Proxy JSON</a>
               </div>
             </div>
             <div class="tech-modal-section">
@@ -1109,7 +1140,7 @@ Response</pre></div>
               <h3>API Endpoints</h3>
               <p><strong>GET /</strong> - Visual dashboard with Terraform configuration details</p>
               <p><strong>GET /api/health</strong> - JSON health check endpoint</p>
-              <div class="tech-modal-code"><pre>curl https://gcp-health-api-jpawjztt4a-uw.a.run.app/api/health</pre></div>
+              <div class="tech-modal-code"><pre>curl https://johnhopedawa.com/api/gcp-health/api/health</pre></div>
               <p><strong>Example Response:</strong></p>
               <div class="tech-modal-code"><pre>{
   "status": "ok",

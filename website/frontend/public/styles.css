@@ -738,6 +738,24 @@ body{
   color:var(--text);
   font-weight:600;
 }
+.modal-metrics{
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:12px;
+  margin:14px 0 12px;
+}
+.modal-metrics .stat-card{
+  cursor:default;
+  padding:16px 12px;
+}
+.modal-metrics .stat-card:hover{
+  translate:none;
+}
+.modal-metrics .stat-card .number{
+  font-size:28px;
+}
+.modal-metrics .stat-card .label{
+  font-size:11px;
+}
 
 /* Footer */
 .footer{
