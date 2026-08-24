@@ -48,7 +48,7 @@ const resumeData = {
       company: "Nyao Software Inc. [HomeLab]",
       role: "Founder & HomeLab DevOps Engineer",
       location: "Coquitlam, BC",
-      duration: "Apr 2025 - Present",
+      duration: "April 2025 - Present",
       responsibilities: [
         "Built and operate a 3-node bare-metal K3s HomeLab running on two MQ910 mini PCs and one Raspberry Pi, with one control-plane node and two worker nodes",
         "Run johnhopedawa.com as a containerized platform with NGINX frontend, Node.js API gateway, resume API, metrics API, MongoDB, Traefik ingress, and persistent storage",
@@ -61,10 +61,10 @@ const resumeData = {
       ]
     },
     {
-      company: "Parkbridge",
+      company: "Parkbridge Lifestyle Communities Inc",
       role: "Assistant Property Manager",
       location: "Surrey, BC",
-      duration: "Feb 2025 - Sep 2025",
+      duration: "February 2025 - September 2025",
       responsibilities: [
         "Coordinated large-scale operations across four communities (403 units), overseeing workflows, documentation, and issue resolution",
         "Managed digital systems for communication, scheduling, record-keeping, and compliance, ensuring accurate, organized data across teams",
@@ -77,7 +77,7 @@ const resumeData = {
       company: "Snoogz Software",
       role: "DevOps Engineer",
       location: "Vancouver, BC",
-      duration: "Apr 2025 - Sep 2025",
+      duration: "April 2025 - September 2025",
       responsibilities: [
         "Build and operate production infrastructure for a microservices-based platform supporting multiple international deployments",
         "Serve as an on-call DevOps/SRE resource for high-severity production incidents, coordinating infrastructure and application-level remediation",
@@ -93,10 +93,10 @@ const resumeData = {
       ]
     },
     {
-      company: "Centurion Property Associates Inc.",
+      company: "Centurion Properties Associates",
       role: "Resident Manager",
       location: "Surrey, BC",
-      duration: "Mar 2023 - Feb 2025",
+      duration: "March 2023 - February 2025",
       responsibilities: [
         "Oversaw day-to-day building operations for 120 units, coordinating maintenance workflows, system checks, and communication between staff and management",
         "Implemented structured inspection routines and data tracking to improve consistency in reporting and operational standards",
@@ -109,7 +109,7 @@ const resumeData = {
       company: "Hollyburn Properties Limited",
       role: "Resident Manager",
       location: "Vancouver, BC",
-      duration: "Apr 2022 - Feb 2023",
+      duration: "April 2022 - February 2023",
       responsibilities: [
         "Managed operations across a large, multi-building portfolio (600+ units), coordinating maintenance teams and contractor workflows under tight timelines",
         "Oversaw project-scale work such as renovations and turnover scheduling, ensuring deadlines, documentation, and quality standards were met",
@@ -122,7 +122,7 @@ const resumeData = {
       company: "Hollyburn Properties Limited",
       role: "Relief Manager",
       location: "Vancouver, BC",
-      duration: "Dec 2021 - Apr 2022",
+      duration: "December 2021 - April 2022",
       responsibilities: [
         "Provided weekend and vacation coverage across multiple high-occupancy buildings while maintaining continuity of operations and tenant support",
         "Responded to resident issues and service requests, coordinating emergency trades or resolving minor concerns directly",
@@ -133,7 +133,7 @@ const resumeData = {
       company: "Hollyburn Properties Limited",
       role: "Assistant Manager",
       location: "Vancouver, BC",
-      duration: "Apr 2021 - Nov 2021",
+      duration: "April 2021 - November 2021",
       responsibilities: [
         "Supported daily building operations, tenant communications, lease administration, vendor access, and suite turnover preparation",
         "Assisted with inspections, service requests, office records, and early RTA-compliant property management processes",

@@ -126,16 +126,16 @@ function findExperienceByCompanyPrefix(experience, companyPrefix, role) {
 function getPdfExperience(resumeData) {
   const experience = resumeData.experience || [];
   const nyao = findExperienceByCompanyPrefix(experience, 'Nyao Software Inc.');
-  const parkbridge = findExperience(experience, 'Parkbridge');
+  const parkbridge = findExperience(experience, 'Parkbridge Lifestyle Communities Inc') || findExperience(experience, 'Parkbridge');
   const snoogz = findExperience(experience, 'Snoogz Software');
-  const centurion = findExperience(experience, 'Centurion Property Associates Inc.');
+  const centurion = findExperience(experience, 'Centurion Properties Associates') || findExperience(experience, 'Centurion Property Associates Inc.');
   const hollyburnRoles = experience.filter((job) => job.company === 'Hollyburn Properties Limited');
 
   return [
     {
       role: nyao?.role || 'Founder & HomeLab DevOps Engineer',
       company: nyao?.company || 'Nyao Software Inc. [HomeLab]',
-      duration: nyao?.duration || 'Apr 2025 - Present',
+      duration: nyao?.duration || 'April 2025 - Present',
       bullets: [
         'Built and operate a 3-node bare-metal K3s HomeLab using two MQ910 mini PCs and one Raspberry Pi.',
         'Run johnhopedawa.com as a Kubernetes platform with NGINX frontend, API gateway, resume API, metrics API, MongoDB, Traefik ingress, and persistent storage.',
@@ -148,8 +148,8 @@ function getPdfExperience(resumeData) {
     },
     {
       role: parkbridge?.role || 'Assistant Property Manager',
-      company: parkbridge?.company || 'Parkbridge',
-      duration: parkbridge?.duration || 'Feb 2025 - Sep 2025',
+      company: parkbridge?.company || 'Parkbridge Lifestyle Communities Inc',
+      duration: parkbridge?.duration || 'February 2025 - September 2025',
       bullets: [
         'Oversaw operations and tenant relations for four manufactured-home communities totaling 403 households across BC.',
         'Administered leasing, resident communications, rent roll posting, A/R and A/P reconciliation, and compliant annual rent-increase notices.',
@@ -160,7 +160,7 @@ function getPdfExperience(resumeData) {
     {
       role: snoogz?.role || 'DevOps Engineer',
       company: snoogz?.company || 'Snoogz Software',
-      duration: snoogz?.duration || 'Apr 2025 - Sep 2025',
+      duration: snoogz?.duration || 'April 2025 - September 2025',
       bullets: [
         'Built and operated production infrastructure for a microservices platform supporting multiple international deployments.',
         'Containerized services with Docker, maintained Kubernetes environments, and supported safe rollouts, reliability, and scalability.',
@@ -170,8 +170,8 @@ function getPdfExperience(resumeData) {
     },
     {
       role: centurion?.role || 'Resident Manager',
-      company: centurion?.company || 'Centurion Property Associates Inc.',
-      duration: centurion?.duration || 'Mar 2023 - Feb 2025',
+      company: centurion?.company || 'Centurion Properties Associates',
+      duration: centurion?.duration || 'March 2023 - February 2025',
       bullets: [
         'Managed day-to-day operations for a 120-unit residential building, including tenant relations, maintenance, vendors, and upkeep.',
         'Collected rent, followed up on arrears, issued legal notices, and worked with accounting to maintain accurate financial records.',
@@ -184,7 +184,7 @@ function getPdfExperience(resumeData) {
       company: 'Hollyburn Properties Limited',
       duration: hollyburnRoles.length
         ? `${hollyburnRoles[hollyburnRoles.length - 1].duration.split(' - ')[0]} - ${hollyburnRoles[0].duration.split(' - ').pop()}`
-        : 'Apr 2021 - Feb 2023',
+        : 'April 2021 - February 2023',
       bullets: [
         'Managed operations across high-occupancy residential buildings, supporting maintenance teams, tenant service, and contractor workflows.',
         'Led suite turnovers, move-in and move-out coordination, inspections, cleaning, key exchanges, and preparation for new residents.',
