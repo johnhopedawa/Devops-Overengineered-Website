@@ -141,7 +141,7 @@ function getPdfExperience(resumeData) {
         'Use Helm and ArgoCD for GitOps delivery, with Kubernetes deployments, services, ingress, configuration, PVCs, and image tags managed from Git.',
         'Build multi-arch Docker images with GitHub Actions and Docker Buildx; use Terraform for GCP Cloud Run services and hybrid-cloud infrastructure practice.',
         'Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter to check deployment health, service status, node CPU, memory, pod health, and cluster behavior.',
-        'Manage one daycare website for a client, including the public site, internal admin tool, content updates, admin workflows, data entry, usability, and deployment concerns.'
+        'Manage one daycare website for a client, including the public site, admin tool, PostgreSQL database, content updates, workflows, data entry, and deployment.'
       ]
     },
     {

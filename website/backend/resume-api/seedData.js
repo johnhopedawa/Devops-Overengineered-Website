@@ -56,7 +56,7 @@ const resumeData = {
         "Build multi-architecture Docker images for amd64 and arm64 with GitHub Actions, Docker Buildx, and Docker Hub so the same services run across mini PCs and Raspberry Pi hardware",
         "Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter to monitor node CPU, memory, pod health, service status, and cluster behavior",
         "Provision and update GCP Cloud Run services with Terraform, connecting serverless health-check workloads to the bare-metal Kubernetes lab for hybrid-cloud practice",
-        "Manage one daycare website for a client, including the public-facing site, internal admin tool, content updates, admin workflows, data entry, operational usability, and deployment concerns",
+        "Manage one daycare website for a client, including the public site, admin tool, PostgreSQL database, content updates, workflows, data entry, and deployment",
         "Use the environment as a hands-on sandbox for Kubernetes troubleshooting, GitOps drift, observability, networking, secrets handling, release automation, and runbook-style operations"
       ]
     },
@@ -155,7 +155,7 @@ const resumeData = {
       name: "Managed Daycare Website and Admin Tool",
       stack: "Public website, admin workflows, content updates, deployment support",
       details: [
-        "Manage one daycare site for a client, including the public-facing website and a private admin-use tool for daycare operations",
+        "Manage one daycare website for a client, including the public site, admin tool, PostgreSQL database, content updates, workflows, data entry, and deployment",
         "Focused on practical admin workflows, content/data management, and a usable front-facing experience",
         "Handled deployment-oriented concerns so the site could be maintained outside local development"
       ]
