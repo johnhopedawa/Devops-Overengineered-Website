@@ -14,7 +14,7 @@ const resumeData = {
     pdfUrl: "/api/resume/pdf",
     filename: "John Dawa Resume.pdf"
   },
-  summary: "Aspiring DevOps Engineer with a background in operational coordination, process improvement, and technical infrastructure. Currently developing hands-on experience through Nyao Software Inc. and a personal HomeLab, including a 3-node bare-metal K3s cluster, GitOps deployments, CI/CD pipelines, Terraform-managed cloud services, monitoring, and web applications. Experienced with Docker, Kubernetes, Terraform, GitHub Actions, GCP, AWS, and observability tools, with a strong focus on reliable deployments, troubleshooting, automation, and clear technical communication.",
+  summary: "Aspiring DevOps Engineer with a background in operational coordination, process improvement, and technical infrastructure. Currently developing hands-on experience through Nyao Software Inc. and a personal HomeLab, including a 3-node bare-metal K3s cluster, GitOps deployments, CI/CD pipelines, Terraform-managed cloud services, monitoring, and web applications. Hands-on experience using Linux, Docker, Kubernetes/K3s, Terraform, CI/CD, GitHub Actions, AWS, GCP, observability tools, and networking fundamentals including DNS, TLS, ports, ingress, and connectivity troubleshooting.",
   skills: [
     "Docker",
     "Kubernetes",
@@ -50,9 +50,9 @@ const resumeData = {
       location: "Coquitlam, BC",
       duration: "April 2025 - Present",
       responsibilities: [
-        "Built and operate a 3-node bare-metal K3s HomeLab running on two MQ910 mini PCs and one Raspberry Pi, with one control-plane node and two worker nodes",
+        "Built and operate a 3-node bare-metal Linux K3s HomeLab running on two MQ910 mini PCs and one Raspberry Pi, with one control-plane node and two worker nodes",
         "Run johnhopedawa.com as a containerized platform with NGINX frontend, Node.js API gateway, resume API, metrics API, MongoDB, Traefik ingress, and persistent storage",
-        "Manage the application stack with Helm and ArgoCD, using Git as the source of truth for Kubernetes deployments, services, ingress, config, and image tags",
+        "Manage the application stack with Helm and ArgoCD, using Git as the source of truth for Kubernetes deployments, services, ingress, configuration, and image tags",
         "Build multi-architecture Docker images for amd64 and arm64 with GitHub Actions, Docker Buildx, and Docker Hub so the same services run across mini PCs and Raspberry Pi hardware",
         "Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter to monitor node CPU, memory, pod health, service status, and cluster behavior",
         "Provision and update GCP Cloud Run services with Terraform, connecting serverless health-check workloads to the bare-metal Kubernetes lab for hybrid-cloud practice",
@@ -87,7 +87,7 @@ const resumeData = {
         "Implement Prometheus metrics and distributed tracing for Java Spring Boot services following standardized observability specifications",
         "Create and maintain automated CI/CD pipelines using GitHub Actions and Jenkins to improve release reliability and developer velocity",
         "Manage infrastructure using Terraform to ensure consistent, reproducible environments across stages",
-        "Collaborate with application teams to troubleshoot infrastructure, deployment, and observability issues, reducing operational overhead",
+        "Troubleshoot infrastructure, deployment, observability, configuration, and rollout issues across containerized services",
         "Automate remediation for common failure scenarios using Kubernetes operators and runbook-driven workflows",
         "Communicate complex technical and reliability concepts to leadership in clear, high-level terms to support decision-making"
       ]

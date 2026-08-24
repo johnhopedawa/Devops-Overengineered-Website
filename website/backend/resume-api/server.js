@@ -137,10 +137,10 @@ function getPdfExperience(resumeData) {
       company: nyao?.company || 'Nyao Software Inc. [HomeLab]',
       duration: nyao?.duration || 'April 2025 - Present',
       bullets: [
-        'Built and operate a 3-node bare-metal K3s HomeLab on two MQ910 mini PCs and one Raspberry Pi, hosting johnhopedawa.com with NGINX, API gateway, resume API, metrics API, MongoDB, Traefik, and persistent storage.',
-        'Use Helm and ArgoCD for GitOps delivery, with Kubernetes deployments, services, ingress, config, PVCs, and image tags managed from Git.',
+        'Built and operate a 3-node bare-metal Linux K3s HomeLab on two MQ910 mini PCs and one Raspberry Pi, hosting johnhopedawa.com with NGINX, API gateway, resume API, metrics API, MongoDB, Traefik, and persistent storage.',
+        'Use Helm and ArgoCD for GitOps delivery, with Kubernetes deployments, services, ingress, configuration, PVCs, and image tags managed from Git.',
         'Build multi-arch Docker images with GitHub Actions and Docker Buildx; use Terraform for GCP Cloud Run services and hybrid-cloud infrastructure practice.',
-        'Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter for live visibility into node CPU, memory, pod health, service status, and cluster behavior.',
+        'Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter to check deployment health, service status, node CPU, memory, pod health, and cluster behavior.',
         'Manage one daycare website for a client, including the public site, internal admin tool, content updates, admin workflows, data entry, usability, and deployment concerns.'
       ]
     },
@@ -160,7 +160,7 @@ function getPdfExperience(resumeData) {
       duration: snoogz?.duration || 'April 2025 - September 2025',
       bullets: [
         'Built and maintained infrastructure for a microservices-based platform, using Terraform to keep environments consistent and easier to deploy across stages.',
-        'Containerized services with Docker, managed image distribution, and maintained Kubernetes environments with a focus on repeatable deployments and safe rollouts.',
+        'Containerized services with Docker, managed image distribution, and maintained Kubernetes environments while troubleshooting deployments, service health, configuration, and rollout issues.',
         'Created Grafana dashboards, Prometheus metrics, alerting, and CI/CD pipelines with GitHub Actions and Jenkins to improve visibility and release reliability.'
       ]
     },
@@ -191,9 +191,9 @@ function getPdfExperience(resumeData) {
 
 function getPdfCompetencies() {
   return [
-    ['DevOps', 'Kubernetes, K3s, Docker, Docker Buildx, Helm, ArgoCD, Terraform, GitHub Actions, Jenkins, Linux, Bash'],
-    ['Cloud & Observability', 'GCP, GCP Cloud Run, AWS, Prometheus, Grafana, kube-state-metrics, Node Exporter, Traefik'],
-    ['Web & Backend', 'NGINX, Node.js, MongoDB, API gateways, admin tools, static sites, deployment workflows'],
+    ['DevOps', 'Linux, Bash, Kubernetes, K3s, Docker, Docker Buildx, Helm, ArgoCD, Terraform, GitHub Actions, Jenkins'],
+    ['Cloud, Networking & Observability', 'AWS, GCP, GCP Cloud Run, Prometheus, Grafana, kube-state-metrics, Node Exporter, DNS, TLS, ports, ingress, Traefik, NGINX'],
+    ['Web & Data', 'Node.js, MongoDB, APIs, API gateways, admin tools, deployment workflows'],
     ['Property Operations', 'Leasing, tenant relations, RTA/MHPTA compliance, maintenance coordination, A/R and A/P, documentation']
   ];
 }
@@ -272,7 +272,7 @@ function buildResumePdf(resumeData) {
   y -= 9;
 
   section('Professional Summary', 14);
-  paragraph(resumeData.summary || 'DevOps engineer and operations professional with experience supporting cloud infrastructure, production-style HomeLab deployments, residential portfolios, vendor coordination, documentation, scheduling, tenant communications, and digital systems management.', 8.4, 10.3);
+  paragraph(resumeData.summary || 'Aspiring DevOps Engineer with a background in operational coordination, process improvement, and technical infrastructure. Hands-on experience using Linux, Docker, Kubernetes, Terraform, CI/CD, AWS, GCP, observability tools, and networking fundamentals including DNS, TLS, ports, ingress, and connectivity troubleshooting in a HomeLab environment.', 8.4, 10.3);
 
   section('Professional Experience', 12);
   getPdfExperience(resumeData).forEach((job) => {
