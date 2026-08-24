@@ -140,7 +140,7 @@ function getPdfExperience(resumeData) {
         'Built and operate a 3-node bare-metal K3s HomeLab using two MQ910 mini PCs and one Raspberry Pi.',
         'Run johnhopedawa.com as a Kubernetes platform with NGINX frontend, API gateway, resume API, metrics API, MongoDB, Traefik ingress, and persistent storage.',
         'Manage deployments with Helm and ArgoCD, keeping Kubernetes resources, config, ingress, and image tags versioned through GitOps.',
-        'Build multi-arch Docker images for amd64 and arm64 with GitHub Actions, Docker Buildx, and Docker Hub.',
+        'Build multi-arch Docker images for amd64, and arm64 with GitHub Actions, Docker Buildx, and Docker Hub.',
         'Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter for node, pod, CPU, memory, and service-health visibility.',
         'Provision GCP Cloud Run services with Terraform and connect serverless health-check workloads to the bare-metal lab.',
         'Manage one daycare website for a client, covering the public site, internal admin tool, content updates, admin workflows, data entry, usability, and deployment concerns.'
