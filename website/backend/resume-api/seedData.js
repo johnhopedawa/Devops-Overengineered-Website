@@ -14,7 +14,7 @@ const resumeData = {
     pdfUrl: "/api/resume/pdf",
     filename: "John Dawa Resume.pdf"
   },
-  summary: "DevOps Engineer with a background in operational coordination, process improvement, and systems management, now focused on building and maintaining production infrastructure for SaaS and custom business software platforms. Experienced with Docker, Kubernetes, CI/CD, Terraform, observability, and cloud environments across GCP and AWS. Strong ability to automate deployment workflows, improve reliability, troubleshoot infrastructure issues, and communicate technical concepts clearly across engineering and leadership teams.",
+  summary: "DevOps engineer with a background in operational coordination, process improvement, and systems management. Currently building Nyao Software Inc. as a personal company and home lab environment to design, break, automate, and document production-style infrastructure patterns. Experienced with Docker, Kubernetes, CI/CD, Terraform, observability, and cloud environments across GCP and AWS, with a practical focus on reliable deployments, troubleshooting, and clear technical communication.",
   skills: [
     "Docker",
     "Kubernetes",
@@ -41,25 +41,25 @@ const resumeData = {
   ],
   experience: [
     {
-      company: "Nyao Software Inc.",
-      role: "DevOps Engineer",
-      location: "Vancouver, BC",
+      company: "Nyao Software Inc. / Personal Home Lab",
+      role: "Founder & Home Lab DevOps Engineer",
+      location: "Coquitlam, BC",
       duration: "Apr 2025 - Present",
       responsibilities: [
-        "Design and operate cloud infrastructure for a SaaS platform across GCP and AWS, ensuring high availability and cost efficiency",
-        "Manage containerized microservices deployments on Kubernetes using Helm and ArgoCD, implementing GitOps workflows for fully automated rollouts",
-        "Build and maintain CI/CD pipelines with GitHub Actions, enabling zero-touch deployments from code commit to production",
-        "Provision and manage cloud infrastructure using Terraform, maintaining consistent and reproducible environments across all stages",
-        "Deploy and operate Prometheus and Grafana monitoring stacks, building dashboards and alerts to provide full observability across services",
-        "Manage Traefik ingress and TLS termination for multi-domain traffic routing across the platform",
-        "Architect and maintain multi-architecture Docker image builds and registry workflows to support cross-platform deployments"
+        "Built and operate a personal DevOps home lab under Nyao Software Inc. to practice production-style infrastructure design, automation, monitoring, and deployment workflows",
+        "Run containerized services on Kubernetes using Helm and ArgoCD, using GitOps patterns to keep deployments reproducible and easy to inspect",
+        "Build CI/CD pipelines with GitHub Actions to automate image builds, deployment changes, and validation steps for lab services",
+        "Provision cloud and lab infrastructure with Terraform to keep environments consistent, documented, and repeatable",
+        "Deploy Prometheus and Grafana monitoring stacks, building dashboards and alerts to understand service health and failure modes",
+        "Manage Traefik ingress and TLS termination for multi-domain routing across the lab environment",
+        "Use the site and supporting services as a hands-on sandbox for Docker, Kubernetes, observability, networking, secrets management, and release automation"
       ]
     },
     {
-      company: "QuadReal Property Group",
+      company: "Parkbridge",
       role: "Assistant Property Manager",
       location: "Surrey, BC",
-      duration: "Feb 2025 - Present",
+      duration: "Feb 2025 - Sep 2025",
       responsibilities: [
         "Coordinated large-scale operations across four communities (403 units), overseeing workflows, documentation, and issue resolution",
         "Managed digital systems for communication, scheduling, record-keeping, and compliance, ensuring accurate, organized data across teams",
@@ -72,7 +72,7 @@ const resumeData = {
       company: "Snoogz Software",
       role: "DevOps Engineer",
       location: "Vancouver, BC",
-      duration: "Aug 2024 - Mar 2025",
+      duration: "Apr 2025 - Sep 2025",
       responsibilities: [
         "Build and operate production infrastructure for a microservices-based platform supporting multiple international deployments",
         "Serve as an on-call DevOps/SRE resource for high-severity production incidents, coordinating infrastructure and application-level remediation",

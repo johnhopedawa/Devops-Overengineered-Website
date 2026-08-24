@@ -117,40 +117,46 @@ function findExperience(experience, company, role) {
   ));
 }
 
+function findExperienceByCompanyPrefix(experience, companyPrefix, role) {
+  return (experience || []).find((job) => (
+    job.company?.startsWith(companyPrefix) && (!role || job.role === role)
+  ));
+}
+
 function getPdfExperience(resumeData) {
   const experience = resumeData.experience || [];
-  const nyao = findExperience(experience, 'Nyao Software Inc.');
-  const quadreal = findExperience(experience, 'QuadReal Property Group');
+  const nyao = findExperienceByCompanyPrefix(experience, 'Nyao Software Inc.');
+  const parkbridge = findExperience(experience, 'Parkbridge');
   const snoogz = findExperience(experience, 'Snoogz Software');
   const centurion = findExperience(experience, 'Centurion Property Associates Inc.');
   const hollyburnRoles = experience.filter((job) => job.company === 'Hollyburn Properties Limited');
 
   return [
     {
-      role: nyao?.role || 'DevOps Engineer',
-      company: nyao?.company || 'Nyao Software Inc.',
+      role: nyao?.role || 'Founder & Home Lab DevOps Engineer',
+      company: nyao?.company || 'Nyao Software Inc. / Personal Home Lab',
       duration: nyao?.duration || 'Apr 2025 - Present',
       bullets: [
-        'Design and operate cloud infrastructure across GCP and AWS, supporting containerized services with reliable delivery workflows.',
-        'Manage Kubernetes deployments using Helm and ArgoCD, implementing GitOps patterns for consistent application rollouts.',
-        'Build CI/CD pipelines with GitHub Actions and provision cloud resources with Terraform for reproducible environments.'
+        'Build and operate a personal DevOps home lab under Nyao Software Inc. to practice production-style infrastructure, automation, monitoring, and deployment workflows.',
+        'Run containerized services on Kubernetes using Helm, ArgoCD, Traefik, and GitOps patterns for reproducible lab deployments.',
+        'Use Terraform, GitHub Actions, Prometheus, and Grafana to automate infrastructure, validate changes, and observe service health.'
       ]
     },
     {
-      role: quadreal?.role || 'Assistant Property Manager',
-      company: quadreal?.company || 'QuadReal Property Group',
-      duration: quadreal?.duration || 'Feb 2025 - Present',
+      role: parkbridge?.role || 'Assistant Property Manager',
+      company: parkbridge?.company || 'Parkbridge',
+      duration: parkbridge?.duration || 'Feb 2025 - Sep 2025',
       bullets: [
-        'Oversee operations and tenant relations for four manufactured-home communities totaling 403 households across BC.',
-        'Administer leasing, resident communications, rent roll posting, A/R and A/P reconciliation, and compliant annual rent-increase notices.',
-        'Coordinate maintenance, contractor scheduling, site inspections, resident programs, and platform adoption across multiple stakeholders.',
-        'Maintain organized records, lease documentation, resale assignments, tenant screening, and RTB-ready compliance files.'
+        'Oversaw operations and tenant relations for four manufactured-home communities totaling 403 households across BC.',
+        'Administered leasing, resident communications, rent roll posting, A/R and A/P reconciliation, and compliant annual rent-increase notices.',
+        'Coordinated maintenance, contractor scheduling, site inspections, resident programs, and platform adoption across multiple stakeholders.',
+        'Maintained organized records, lease documentation, resale assignments, tenant screening, and RTB-ready compliance files.'
       ]
     },
     {
       role: snoogz?.role || 'DevOps Engineer',
       company: snoogz?.company || 'Snoogz Software',
-      duration: snoogz?.duration || 'Aug 2024 - Mar 2025',
+      duration: snoogz?.duration || 'Apr 2025 - Sep 2025',
       bullets: [
         'Built and operated production infrastructure for a microservices platform supporting multiple international deployments.',
         'Containerized services with Docker, maintained Kubernetes environments, and supported safe rollouts, reliability, and scalability.',
@@ -280,7 +286,7 @@ function buildResumePdf(resumeData) {
   y -= 9;
 
   section('Professional Summary', 14);
-  paragraph('DevOps engineer and operations professional with experience supporting cloud infrastructure, production deployments, residential portfolios, vendor coordination, documentation, scheduling, tenant communications, and digital systems management. Skilled at organizing workflows, maintaining accurate records, resolving issues, and keeping day-to-day operations running smoothly across technical and business stakeholders.', 8.4, 10.3);
+  paragraph('DevOps engineer and operations professional with experience supporting cloud infrastructure, production-style home lab deployments, residential portfolios, vendor coordination, documentation, scheduling, tenant communications, and digital systems management. Currently building Nyao Software Inc. as a personal company and home lab for Kubernetes, automation, monitoring, and infrastructure experiments while applying practical operations experience across technical and business workflows.', 8.4, 10.3);
 
   section('Professional Experience', 12);
   getPdfExperience(resumeData).forEach((job) => {
