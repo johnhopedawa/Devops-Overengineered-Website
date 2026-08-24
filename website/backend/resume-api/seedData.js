@@ -14,7 +14,7 @@ const resumeData = {
     pdfUrl: "/api/resume/pdf",
     filename: "John Dawa Resume.pdf"
   },
-  summary: "DevOps engineer with a background in operational coordination, process improvement, and systems management. Currently building Nyao Software Inc. as a personal company and HomeLab for production-style infrastructure practice: a 3-node bare-metal K3s cluster, GitOps deployments, CI/CD, Terraform-managed cloud services, monitoring, and client-facing web applications. Experienced with Docker, Kubernetes, CI/CD, Terraform, observability, and cloud environments across GCP and AWS, with a practical focus on reliable deployments, troubleshooting, and clear technical communication.",
+  summary: "Aspiring DevOps Engineer with a background in operational coordination, process improvement, and technical infrastructure. Currently developing hands-on experience through Nyao Software Inc. and a personal HomeLab, including a 3-node bare-metal K3s cluster, GitOps deployments, CI/CD pipelines, Terraform-managed cloud services, monitoring, and web applications. Experienced with Docker, Kubernetes, Terraform, GitHub Actions, GCP, AWS, and observability tools, with a strong focus on reliable deployments, troubleshooting, automation, and clear technical communication.",
   skills: [
     "Docker",
     "Kubernetes",

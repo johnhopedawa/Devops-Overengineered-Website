@@ -137,13 +137,9 @@ function getPdfExperience(resumeData) {
       company: nyao?.company || 'Nyao Software Inc. [HomeLab]',
       duration: nyao?.duration || 'April 2025 - Present',
       bullets: [
-        'Built and operate a 3-node bare-metal K3s HomeLab using two MQ910 mini PCs and one Raspberry Pi.',
-        'Run johnhopedawa.com as a Kubernetes platform with NGINX frontend, API gateway, resume API, metrics API, MongoDB, Traefik ingress, and persistent storage.',
-        'Manage deployments with Helm and ArgoCD, keeping Kubernetes resources, config, ingress, and image tags versioned through GitOps.',
-        'Build multi-arch Docker images for amd64, and arm64 with GitHub Actions, Docker Buildx, and Docker Hub.',
-        'Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter for node, pod, CPU, memory, and service-health visibility.',
-        'Provision GCP Cloud Run services with Terraform and connect serverless health-check workloads to the bare-metal lab.',
-        'Manage one daycare website for a client, covering the public site, internal admin tool, content updates, admin workflows, data entry, usability, and deployment concerns.'
+        'Built and operate a 3-node bare-metal K3s HomeLab running johnhopedawa.com with NGINX, API gateway, resume API, metrics API, MongoDB, Traefik, and persistent storage.',
+        'Use Helm, ArgoCD, GitHub Actions, Docker Buildx, Terraform, Prometheus, Grafana, kube-state-metrics, and Node Exporter for GitOps delivery and observability.',
+        'Manage one daycare website for a client, including the public site, internal admin tool, content updates, admin workflows, data entry, usability, and deployment concerns.'
       ]
     },
     {
@@ -152,9 +148,7 @@ function getPdfExperience(resumeData) {
       duration: parkbridge?.duration || 'February 2025 - September 2025',
       bullets: [
         'Oversaw operations and tenant relations for four manufactured-home communities totaling 403 households across BC.',
-        'Administered leasing, resident communications, rent roll posting, A/R and A/P reconciliation, and compliant annual rent-increase notices.',
-        'Coordinated maintenance, contractor scheduling, site inspections, resident programs, and platform adoption across multiple stakeholders.',
-        'Maintained organized records, lease documentation, resale assignments, tenant screening, and RTB-ready compliance files.'
+        'Managed leasing, resident communications, rent roll posting, A/R and A/P reconciliation, maintenance coordination, and RTA/MHPTA documentation.'
       ]
     },
     {
@@ -162,10 +156,8 @@ function getPdfExperience(resumeData) {
       company: snoogz?.company || 'Snoogz Software',
       duration: snoogz?.duration || 'April 2025 - September 2025',
       bullets: [
-        'Built and operated production infrastructure for a microservices platform supporting multiple international deployments.',
-        'Containerized services with Docker, maintained Kubernetes environments, and supported safe rollouts, reliability, and scalability.',
-        'Created Grafana dashboards, Prometheus metrics, distributed tracing, and CI/CD pipelines with GitHub Actions and Jenkins.',
-        'Used Terraform and runbook-driven workflows to reduce operational overhead and improve incident response.'
+        'Built and operated production infrastructure for a microservices platform with Docker, Kubernetes, Terraform, GitHub Actions, and Jenkins.',
+        'Created Grafana dashboards, Prometheus metrics, distributed tracing, and runbook-driven workflows to improve reliability and incident response.'
       ]
     },
     {
@@ -173,10 +165,8 @@ function getPdfExperience(resumeData) {
       company: centurion?.company || 'Centurion Properties Associates',
       duration: centurion?.duration || 'March 2023 - February 2025',
       bullets: [
-        'Managed day-to-day operations for a 120-unit residential building, including tenant relations, maintenance, vendors, and upkeep.',
-        'Collected rent, followed up on arrears, issued legal notices, and worked with accounting to maintain accurate financial records.',
-        'Implemented inspection routines, preventative maintenance, suite turnover coordination, and structured work-order follow-up.',
-        'Supervised on-site and mobile staff while maintaining organized lease, correspondence, and RTB documentation.'
+        'Managed day-to-day operations for a 120-unit residential building, including tenant relations, maintenance, vendors, inspections, and upkeep.',
+        'Maintained rent collection, arrears follow-up, legal notices, suite turnovers, staff coordination, and organized lease/RTB documentation.'
       ]
     },
     {
@@ -186,42 +176,8 @@ function getPdfExperience(resumeData) {
         ? `${hollyburnRoles[hollyburnRoles.length - 1].duration.split(' - ')[0]} - ${hollyburnRoles[0].duration.split(' - ').pop()}`
         : 'April 2021 - February 2023',
       bullets: [
-        'Managed operations across high-occupancy residential buildings, supporting maintenance teams, tenant service, and contractor workflows.',
-        'Led suite turnovers, move-in and move-out coordination, inspections, cleaning, key exchanges, and preparation for new residents.',
-        'Coordinated renovation and repair work including painting, flooring, plumbing, drywall, locks, appliances, and seasonal services.',
-        'Supported leasing, tenant records, applications, legal notices, rent tracking, handover reports, and administrative documentation.'
-      ]
-    }
-  ];
-}
-
-function getPdfProjects(resumeData) {
-  return resumeData.projects || [
-    {
-      name: 'johnhopedawa.com HomeLab Platform',
-      stack: 'K3s, Helm, ArgoCD, Traefik, NGINX, Node.js, MongoDB, Prometheus, Grafana',
-      details: [
-        'Runs on a 3-node bare-metal K3s cluster made from two MQ910 mini PCs and one Raspberry Pi.',
-        'Deploys frontend, API gateway, resume API, metrics API, MongoDB, ingress, PVCs, and config through Helm.',
-        'Uses Prometheus and Grafana for live node, pod, memory, CPU, and service-health visibility.'
-      ]
-    },
-    {
-      name: 'Managed Daycare Website and Admin Tool',
-      stack: 'Public website, admin workflows, content updates, deployment support',
-      details: [
-        'Manage one daycare site for a client, including the public-facing website and a private admin-use tool for daycare operations.',
-        'Focused on practical admin workflows, content/data management, and a usable front-facing experience.',
-        'Handled deployment-oriented concerns so the site could be maintained outside local development.'
-      ]
-    },
-    {
-      name: 'Hybrid Cloud Health and Metrics APIs',
-      stack: 'Node.js, GCP Cloud Run, Terraform, Prometheus, GitHub Actions',
-      details: [
-        'Built a Cloud Run health-check API deployed with Terraform and container automation.',
-        'Built a metrics API that queries Prometheus inside the cluster and exposes clean JSON for the website dashboard.',
-        'Practiced CI/CD flows from git push to Docker image publishing, infrastructure updates, and service rollout.'
+        'Managed operations across high-occupancy residential buildings, supporting maintenance teams, tenant service, contractor workflows, and renovations.',
+        'Supported leasing, suite turnovers, move-in/out coordination, inspections, rent tracking, handover reports, and administrative documentation.'
       ]
     }
   ];
@@ -230,40 +186,26 @@ function getPdfProjects(resumeData) {
 function getPdfCompetencies() {
   return [
     ['DevOps', 'Kubernetes, K3s, Docker, Docker Buildx, Helm, ArgoCD, Terraform, GitHub Actions, Jenkins, Linux, Bash'],
-    ['Cloud & Observability', 'GCP, GCP Cloud Run, AWS, Prometheus, Grafana, kube-state-metrics, Node Exporter, Traefik, CI/CD'],
+    ['Cloud & Observability', 'GCP, GCP Cloud Run, AWS, Prometheus, Grafana, kube-state-metrics, Node Exporter, Traefik'],
     ['Web & Backend', 'NGINX, Node.js, MongoDB, API gateways, admin tools, static sites, deployment workflows'],
-    ['Property Administration', 'Full-cycle leasing, tenant screening, lease administration, RTA/MHPTA compliance'],
-    ['Operations Coordination', 'Workflow organization, vendor follow-up, maintenance coordination, issue resolution, process improvement'],
-    ['Financial Administration', 'Rent collection, rent roll posting, A/R and A/P reconciliation, budget and arrears follow-up'],
-    ['Technology', 'Yardi Voyager, Rent Manager, RentCafe, Microsoft Office 365, MongoDB, Node.js'],
-    ['Communication', 'Tenant relations, stakeholder coordination, documentation, conflict resolution, professional correspondence']
-  ];
-}
-
-function getPdfAchievements() {
-  return [
-    'HomeLab platform: built and operate a 3-node bare-metal K3s cluster with GitOps, Helm, monitoring, ingress, and persistent services.',
-    'Client web delivery: manage one daycare public website and admin-use tool with practical operational workflows.',
-    'Multi-property operations: supported 403-household and 600+ unit residential portfolios while maintaining continuity across stakeholders.',
-    'Compliance focus: maintained structured documentation for RTA, MHPTA, lease files, notices, audits, and RTB hearing readiness.',
-    'Infrastructure delivery: built deployment, monitoring, and automation workflows across Kubernetes, cloud, and microservices environments.'
+    ['Property Operations', 'Leasing, tenant relations, RTA/MHPTA compliance, maintenance coordination, A/R and A/P, documentation']
   ];
 }
 
 function buildResumePdf(resumeData) {
   const pageWidth = 612;
   const pageHeight = 792;
-  const margin = 44;
+  const margin = 36;
   const contentWidth = pageWidth - margin * 2;
   const pages = [[]];
   let page = pages[0];
-  let y = pageHeight - 38;
+  let y = pageHeight - 32;
 
   function ensureSpace(height) {
-    if (y - height >= 36) return;
+    if (y - height >= 28) return;
     page = [];
     pages.push(page);
-    y = pageHeight - 38;
+    y = pageHeight - 32;
   }
 
   function text(value, x, size, font = 'F1', options = {}) {
@@ -285,15 +227,15 @@ function buildResumePdf(resumeData) {
     textAt(value, x, textY, size, font, options);
   }
 
-  function section(title, topGap = 12) {
-    ensureSpace(28);
+  function section(title, topGap = 8) {
+    ensureSpace(22);
     y -= topGap;
-    text(title.toUpperCase(), margin, 9.5, 'F2', { fill: '0 0 0' });
+    text(title.toUpperCase(), margin, 8.7, 'F2', { fill: '0 0 0' });
     line(margin, y - 4, pageWidth - margin, y - 4, '0.48 0.48 0.48', 0.5);
-    y -= 14;
+    y -= 11;
   }
 
-  function paragraph(value, size = 8.4, lineHeight = 10.2) {
+  function paragraph(value, size = 7.6, lineHeight = 8.8) {
     const lines = wrapText(value, contentWidth, size);
     ensureSpace(lines.length * lineHeight + 4);
     lines.forEach((lineText) => {
@@ -302,7 +244,7 @@ function buildResumePdf(resumeData) {
     });
   }
 
-  function bullet(value, indent = 11, fontSize = 8.2, lineHeight = 9.7) {
+  function bullet(value, indent = 10, fontSize = 7.45, lineHeight = 8.45) {
     const bulletX = margin + indent;
     const textX = bulletX + 11;
     const lines = wrapText(value, contentWidth - indent - 12, fontSize);
@@ -316,50 +258,37 @@ function buildResumePdf(resumeData) {
 
   const contact = uniqueValues([resumeData.phone, resumeData.email]).join(' | ');
   const subtitle = `${resumeData.title || 'DevOps Engineer'} | BC, Canada`;
-  centerText(resumeData.name || 'John Hope Dawa', y, 18, 'F2');
-  y -= 14;
-  centerText(subtitle, y, 10, 'F1');
-  y -= 11;
-  centerText(contact, y, 8.8, 'F1');
-  y -= 9;
+  centerText(resumeData.name || 'John Hope Dawa', y, 16, 'F2');
+  y -= 12;
+  centerText(subtitle, y, 8.8, 'F1');
+  y -= 9.5;
+  centerText(contact, y, 8.0, 'F1');
+  y -= 6;
 
-  section('Professional Summary', 14);
-  paragraph(resumeData.summary || 'DevOps engineer and operations professional with experience supporting cloud infrastructure, production-style HomeLab deployments, residential portfolios, vendor coordination, documentation, scheduling, tenant communications, and digital systems management.', 8.4, 10.3);
+  section('Professional Summary', 9);
+  paragraph(resumeData.summary || 'DevOps engineer and operations professional with experience supporting cloud infrastructure, production-style HomeLab deployments, residential portfolios, vendor coordination, documentation, scheduling, tenant communications, and digital systems management.', 7.55, 8.7);
 
-  section('Professional Experience', 12);
+  section('Professional Experience', 8);
   getPdfExperience(resumeData).forEach((job) => {
     const jobLine = `${job.role} - ${job.company} - ${job.duration}`;
-    ensureSpace(22 + job.bullets.length * 18);
-    text(jobLine, margin, 8.9, 'F2');
-    y -= 11;
+    ensureSpace(18 + job.bullets.length * 14);
+    text(jobLine, margin, 7.85, 'F2');
+    y -= 9.1;
     job.bullets.forEach((item) => bullet(item));
-    y -= 3;
+    y -= 1.5;
   });
 
-  section('Selected Projects', 12);
-  getPdfProjects(resumeData).forEach((project) => {
-    ensureSpace(35 + (project.details || []).length * 15);
-    text(project.name, margin, 8.9, 'F2');
-    y -= 10;
-    paragraph(project.stack, 7.8, 9.1);
-    (project.details || []).forEach((item) => bullet(item, 11, 8.0, 9.4));
-    y -= 3;
-  });
-
-  section('Core Competencies', 12);
+  section('Core Competencies', 8);
   getPdfCompetencies().forEach(([label, value]) => {
-    const lines = wrapText(`${label}: ${value}`, contentWidth, 8.1);
-    ensureSpace(lines.length * 9.4 + 2);
+    const lines = wrapText(`${label}: ${value}`, contentWidth, 7.45);
+    ensureSpace(lines.length * 8.35 + 1);
     lines.forEach((lineText, index) => {
-      textAt(lineText, index === 0 ? margin : margin + 16, y, 8.1, 'F1');
-      y -= 9.4;
+      textAt(lineText, index === 0 ? margin : margin + 14, y, 7.45, 'F1');
+      y -= 8.35;
     });
   });
 
-  section('Key Achievements', 12);
-  getPdfAchievements().forEach((item) => bullet(item, 11, 8.1, 9.6));
-
-  return createPdfDocument(pages);
+  return createPdfDocument(pages.slice(0, 1));
 }
 
 // Health check
