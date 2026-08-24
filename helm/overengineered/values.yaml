@@ -37,7 +37,7 @@ metricsApi:
       cpu: "100m"
       memory: "128Mi"
 resumeApi:
-  tag: main-d973ed1
+  tag: main-a5670f0
   replicas: 1
   config:
     mongoUrl: "mongodb://mongodb-service:27017"
