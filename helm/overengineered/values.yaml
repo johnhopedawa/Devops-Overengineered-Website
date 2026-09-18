@@ -16,7 +16,7 @@ apiGateway:
       cpu: "100m"
       memory: "128Mi"
 frontend:
-  tag: main-e5a3e40
+  tag: main-984a2cc
   replicas: 1
   resources:
     requests:
@@ -37,7 +37,7 @@ metricsApi:
       cpu: "100m"
       memory: "128Mi"
 resumeApi:
-  tag: main-241675b
+  tag: main-984a2cc
   replicas: 1
   config:
     mongoUrl: "mongodb://mongodb-service:27017"
