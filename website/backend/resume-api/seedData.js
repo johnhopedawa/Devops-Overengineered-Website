@@ -14,7 +14,7 @@ const resumeData = {
     pdfUrl: "/api/resume/pdf",
     filename: "John Dawa Resume.pdf"
   },
-  summary: "Aspiring DevOps Engineer with a background in operational coordination, process improvement, and technical infrastructure. Currently developing hands-on experience through Nyao Software Inc. and a personal HomeLab, including a 3-node bare-metal K3s cluster, GitOps deployments, CI/CD pipelines, Terraform-managed cloud services, monitoring, and web applications. Hands-on experience using Linux, Docker, Kubernetes/K3s, Terraform, CI/CD, GitHub Actions, AWS, GCP, observability tools, and networking fundamentals including DNS, TLS, ports, ingress, and connectivity troubleshooting.",
+  summary: "DevOps Engineer with a background in operational coordination, process improvement, and technical infrastructure. Currently working at Nyao Software Inc., building and maintaining deployment workflows across Vercel, Railway, GitHub Actions, Docker, Node.js, cloud services, monitoring, and web applications. Hands-on experience using Linux, Docker, Kubernetes/K3s, Terraform, CI/CD, GitHub Actions, AWS, GCP, observability tools, and networking fundamentals including DNS, TLS, ports, ingress, and connectivity troubleshooting.",
   skills: [
     "Docker",
     "Kubernetes",
@@ -25,6 +25,8 @@ const resumeData = {
     "GitHub Actions",
     "Docker Buildx",
     "Jenkins",
+    "Vercel",
+    "Railway",
     "Traefik",
     "NGINX",
     "Python",
@@ -45,19 +47,16 @@ const resumeData = {
   ],
   experience: [
     {
-      company: "Nyao Software Inc. [HomeLab]",
-      role: "Founder & HomeLab DevOps Engineer",
+      company: "Nyao Software Inc.",
+      role: "Founder & DevOps Engineer",
       location: "Coquitlam, BC",
       duration: "April 2025 - Present",
       responsibilities: [
-        "Built and operate a 3-node bare-metal Linux K3s HomeLab running on two MQ910 mini PCs and one Raspberry Pi, with one control-plane node and two worker nodes",
-        "Run johnhopedawa.com as a containerized platform with NGINX frontend, Node.js API gateway, resume API, metrics API, MongoDB, Traefik ingress, and persistent storage",
-        "Manage the application stack with Helm and ArgoCD, using Git as the source of truth for Kubernetes deployments, services, ingress, configuration, and image tags",
-        "Build multi-architecture Docker images for amd64 and arm64 with GitHub Actions, Docker Buildx, and Docker Hub so the same services run across mini PCs and Raspberry Pi hardware",
-        "Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter to monitor node CPU, memory, pod health, service status, and cluster behavior",
-        "Provision and update GCP Cloud Run services with Terraform, connecting serverless health-check workloads to the bare-metal Kubernetes lab for hybrid-cloud practice",
-        "Manage one daycare website for a client, including the public site, admin tool, PostgreSQL database, content updates, workflows, data entry, and deployment",
-        "Use the environment as a hands-on sandbox for Kubernetes troubleshooting, GitOps drift, observability, networking, secrets handling, release automation, and runbook-style operations"
+        "Build and maintain deployment workflows for web applications using Vercel, Railway, GitHub Actions, Docker, and Node.js services",
+        "Coordinate frontend and backend releases across Vercel and Railway, including environment variables, service configuration, domains, and production deployment checks",
+        "Manage source-controlled release processes, deployment troubleshooting, rollback planning, and operational documentation for application updates",
+        "Support cloud and platform operations across DNS, TLS, ports, environment configuration, service connectivity, and application health checks",
+        "Improve delivery reliability by tightening CI/CD workflows, build consistency, deployment visibility, and repeatable release practices"
       ]
     },
     {
@@ -143,30 +142,12 @@ const resumeData = {
   ],
   projects: [
     {
-      name: "johnhopedawa.com HomeLab Platform",
+      name: "johnhopedawa.com",
       stack: "K3s, Helm, ArgoCD, Traefik, NGINX, Node.js, MongoDB, Prometheus, Grafana",
       details: [
         "Runs on a 3-node bare-metal K3s cluster made from two MQ910 mini PCs and one Raspberry Pi",
         "Deploys a multi-service website stack including frontend, API gateway, resume API, metrics API, MongoDB, ingress, PVCs, and config through Helm",
         "Uses Prometheus and Grafana for live node, pod, memory, CPU, and service-health visibility"
-      ]
-    },
-    {
-      name: "Managed Daycare Website and Admin Tool",
-      stack: "Public website, admin workflows, content updates, deployment support",
-      details: [
-        "Manage one daycare website for a client, including the public site, admin tool, PostgreSQL database, content updates, workflows, data entry, and deployment",
-        "Focused on practical admin workflows, content/data management, and a usable front-facing experience",
-        "Handled deployment-oriented concerns so the site could be maintained outside local development"
-      ]
-    },
-    {
-      name: "Hybrid Cloud Health and Metrics APIs",
-      stack: "Node.js, GCP Cloud Run, Terraform, Prometheus, GitHub Actions",
-      details: [
-        "Built a Cloud Run health-check API deployed with Terraform and container automation",
-        "Built a metrics API that queries Prometheus inside the cluster and exposes clean JSON for the website dashboard",
-        "Practiced CI/CD flows from git push to Docker image publishing, infrastructure updates, and service rollout"
       ]
     }
   ],

@@ -133,15 +133,14 @@ function getPdfExperience(resumeData) {
 
   return [
     {
-      role: nyao?.role || 'Founder & HomeLab DevOps Engineer',
-      company: nyao?.company || 'Nyao Software Inc. [HomeLab]',
+      role: nyao?.role || 'Founder & DevOps Engineer',
+      company: nyao?.company || 'Nyao Software Inc.',
       duration: nyao?.duration || 'April 2025 - Present',
       bullets: [
-        'Built and operate a 3-node bare-metal Linux K3s HomeLab on two MQ910 mini PCs and one Raspberry Pi, hosting johnhopedawa.com with NGINX, API gateway, resume API, metrics API, MongoDB, Traefik, and persistent storage.',
-        'Use Helm and ArgoCD for GitOps delivery, with Kubernetes deployments, services, ingress, configuration, PVCs, and image tags managed from Git.',
-        'Build multi-arch Docker images with GitHub Actions and Docker Buildx; use Terraform for GCP Cloud Run services and hybrid-cloud infrastructure practice.',
-        'Operate Prometheus, Grafana, kube-state-metrics, and Node Exporter to check deployment health, service status, node CPU, memory, pod health, and cluster behavior.',
-        'Manage one daycare website for a client, including the public site, admin tool, PostgreSQL database, content updates, workflows, data entry, and deployment.'
+        'Build and maintain deployment workflows for web applications using Vercel, Railway, GitHub Actions, Docker, and Node.js services.',
+        'Coordinate frontend and backend releases across Vercel and Railway, including environment variables, service configuration, domains, and production deployment checks.',
+        'Manage source-controlled release processes, deployment troubleshooting, rollback planning, and operational documentation for application updates.',
+        'Support cloud and platform operations across DNS, TLS, ports, environment configuration, service connectivity, and application health checks.'
       ]
     },
     {
@@ -191,9 +190,9 @@ function getPdfExperience(resumeData) {
 
 function getPdfCompetencies() {
   return [
-    ['DevOps', 'Linux, Bash, Kubernetes, K3s, Docker, Docker Buildx, Helm, ArgoCD, Terraform, GitHub Actions, Jenkins'],
+    ['DevOps', 'Linux, Bash, Kubernetes, K3s, Docker, Docker Buildx, Helm, ArgoCD, Terraform, GitHub Actions, Jenkins, Vercel, Railway'],
     ['Cloud, Networking & Observability', 'AWS, GCP, GCP Cloud Run, Prometheus, Grafana, kube-state-metrics, Node Exporter, DNS, TLS, ports, ingress, Traefik, NGINX'],
-    ['Web & Data', 'Node.js, MongoDB, APIs, API gateways, admin tools, deployment workflows'],
+    ['Web & Data', 'Node.js, MongoDB, APIs, API gateways, deployment workflows'],
     ['Property Operations', 'Leasing, tenant relations, RTA/MHPTA compliance, maintenance coordination, A/R and A/P, documentation']
   ];
 }
@@ -272,7 +271,7 @@ function buildResumePdf(resumeData) {
   y -= 9;
 
   section('Professional Summary', 14);
-  paragraph(resumeData.summary || 'Aspiring DevOps Engineer with a background in operational coordination, process improvement, and technical infrastructure. Hands-on experience using Linux, Docker, Kubernetes, Terraform, CI/CD, AWS, GCP, observability tools, and networking fundamentals including DNS, TLS, ports, ingress, and connectivity troubleshooting in a HomeLab environment.', 8.4, 10.3);
+  paragraph(resumeData.summary || 'DevOps Engineer with a background in operational coordination, process improvement, and technical infrastructure. Hands-on experience using Linux, Docker, Kubernetes, Terraform, CI/CD, AWS, GCP, observability tools, and networking fundamentals including DNS, TLS, ports, ingress, and connectivity troubleshooting.', 8.4, 10.3);
 
   section('Professional Experience', 12);
   getPdfExperience(resumeData).forEach((job) => {
