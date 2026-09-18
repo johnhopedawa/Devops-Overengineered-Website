@@ -5,7 +5,7 @@ image:
   repository: johnhopedawa
   pullPolicy: Always
 apiGateway:
-  tag: main-648b9fd
+  tag: main-e5a3e40
   replicas: 1
   gcpHealthApiUrl: "https://gcp-health-api-jpawjztt4a-uw.a.run.app"
   resources:
@@ -16,7 +16,7 @@ apiGateway:
       cpu: "100m"
       memory: "128Mi"
 frontend:
-  tag: main-648b9fd
+  tag: main-e5a3e40
   replicas: 1
   resources:
     requests:
